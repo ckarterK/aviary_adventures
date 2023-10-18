@@ -3,13 +3,20 @@ package com.example.myapplication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
 class welcomePage : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome_page)
-
 
 
         var loginButton = findViewById<Button>(R.id.WelcomePage_LoginButton)
@@ -24,8 +31,19 @@ class welcomePage : AppCompatActivity() {
 
         registerButton.setOnClickListener {
 
-            val intent = Intent(this, RegisterPage::class.java)
+
+            val intent = Intent(this, MapsActivity::class.java)
             startActivity(intent)
+
+
+
+
+
+
+
+
         }
     }
+
+
 }
