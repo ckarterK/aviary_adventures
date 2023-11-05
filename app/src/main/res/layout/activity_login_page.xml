@@ -26,13 +26,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="110dp"
-            android:layout_marginTop="85dp"
             android:layout_marginEnd="111dp"
+            android:layout_marginBottom="55dp"
             android:text="Login"
             android:textSize="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="410dp"
@@ -40,6 +40,7 @@
             android:layout_marginStart="1dp"
             android:layout_marginTop="78dp"
             android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2">
@@ -50,9 +51,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:ems="10"
-                android:textSize="24dp"
-                android:hint="Email"
+                android:hint="Email e.g: sam@gmail.com"
                 android:inputType="textEmailAddress"
+                android:textSize="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -116,6 +117,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:srcCompat="@tools:sample/avatars"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

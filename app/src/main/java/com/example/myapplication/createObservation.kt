@@ -1,28 +1,33 @@
 package com.example.myapplication
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
+import androidx.core.app.ActivityCompat
+import com.example.myapplication.Models.User
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.Date
 
 class createObservation : AppCompatActivity() {
@@ -31,19 +36,25 @@ class createObservation : AppCompatActivity() {
     private var PhotoUrl:String=""
     private lateinit var imageBitmap: Bitmap
     private  val CAMERA_REQUEST_CODE = 1001
-
+    private lateinit var birdSpeciesET:Spinner
+    private lateinit var quantityET:TextView
+    private lateinit var birdDescriptionET:EditText
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_observation)
-        val spinner_items = mutableListOf<String>()
 
-        spinner_items.add("akim")
-        spinner_items.add("car")
-        spinner_items.add("van")
-        spinner_items.add("stan")
+        birdSpeciesET= findViewById<Spinner>(R.id.createObservation_BirdDropDown)
 
-        val spinner = findViewById<Spinner>(R.id.createObservation_BirdDropDown)
+
+        val spinner_items = mutableListOf(
+            "select a bird species ","American Robin", "Bald Eagle", "Blue Jay", "Cardinal", "Chickadee",
+            "European Starling", "House Sparrow", "Mallard Duck", "Northern Mockingbird", "Peregrine Falcon",
+            "Red-tailed Hawk", "American Goldfinch", "Ruby-throated Hummingbird", "Swan", "Woodpecker",
+            "Yellow Warbler", "Osprey", "Cedar Waxwing", "Sandhill Crane", "Northern Harrier"
+        )
 
         val adapter = ArrayAdapter(
             this,
@@ -55,12 +66,34 @@ class createObservation : AppCompatActivity() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         // Apply the adapter to the spinner
-        spinner.adapter = adapter
+        birdSpeciesET.adapter = adapter
 
+
+        quantityET=findViewById<TextView>(R.id.createObservation_Qantity)
+        birdDescriptionET= findViewById<EditText>(R.id.createObservation_Description)
         var addButton= findViewById<ImageView>(R.id.createObservation_addQuantity)
         var minusButton= findViewById<ImageView>(R.id.createObservation_minusQuantity)
         var addSpeciesButton=findViewById<Button>(R.id.createObservation_addSpecies)
+        var recordButton=findViewById<Button>(R.id.createObservation_Record)
         val takePictureButton = findViewById<Button>(R.id.ButtonPicture)
+
+
+        setupNavigator(R.id.profile_CreateObservation,settingsPage::class.java)
+        setupNavigator(R.id.settings_CreateObservation ,settingsPage::class.java)
+        setupNavigator(R.id.map_CreateObservation,MapsActivity::class.java)
+        setupNavigator(R.id.recrdobservation_CreateObservation,createObservation::class.java)
+        setupNavigator(R.id.observationList_CreateObservation,ObservationListPage::class.java)
+
+        fusedLocationClient= LocationServices.getFusedLocationProviderClient(this)
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+                location?.let {
+                    User.staticUser.setLocation(it.latitude, it.longitude)
+                }
+            }
+        }
+
 
         addButton.setOnClickListener {
 
@@ -71,7 +104,6 @@ class createObservation : AppCompatActivity() {
 
 
         }
-
 
         minusButton.setOnClickListener {
 
@@ -99,6 +131,8 @@ class createObservation : AppCompatActivity() {
             var observation = Observation()
 
             if(validateFields(observation)) {
+try {
+
 
                 uploadImageToFirebaseStorage(imageBitmap)
                 User.staticUser.addObservation(observation)
@@ -115,7 +149,11 @@ class createObservation : AppCompatActivity() {
                     .addOnCompleteListener { dbTask ->
                         if (dbTask.isSuccessful) {
                             Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
-
+                            counter=0
+                            birdDescriptionET.setText("")
+                            quantityET.setText("Quantity")
+                            birdSpeciesET.setSelection(0)
+                            takePictureButton.isEnabled=true
                         }
                         else
                         {
@@ -124,6 +162,10 @@ class createObservation : AppCompatActivity() {
                             // Handle the error (e.g., show a message to the user)
                         }
                     }
+            }catch (e: Exception){
+                Toast.makeText(this, "take a picture", Toast.LENGTH_SHORT).show()
+
+            }
             }
 
         }
@@ -131,10 +173,48 @@ class createObservation : AppCompatActivity() {
         takePictureButton.setOnClickListener {
             val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
-
+            takePictureButton.isEnabled=false
         }
 
 
+        recordButton.setOnClickListener {
+
+
+            var observation = Observation()
+
+            if(validateFields(observation)) {
+                try {
+
+                User.staticUser.addObservation(observation)
+                val database = FirebaseDatabase.getInstance()
+
+
+                // Create a DatabaseReference to the user's data
+                val databaseReference: DatabaseReference =
+                    database.getReference("Users").child(User.staticUser.getUid())
+                        .child("observed List").child("observation ${observation.getObservationDate()}")
+
+                // Save the user's data to the database
+                databaseReference.setValue(observation.toMap())
+                    .addOnCompleteListener { dbTask ->
+                        if (dbTask.isSuccessful) {
+                            Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this, ObservationListPage::class.java)
+                            startActivity(intent)
+                        }
+                        else
+                        {
+                            // Error saving data to the database
+                            val dbException = dbTask.exception
+                            // Handle the error (e.g., show a message to the user)
+                        }
+                    }
+            }catch (e: Exception){
+                    Toast.makeText(this, "take a picture", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        }
     }
     fun getCurrentDateTime(): String {
         val currentDate = Date()
@@ -180,22 +260,20 @@ class createObservation : AppCompatActivity() {
     }
 
     private fun validateFields(observation:Observation): Boolean {
-        var birdSpeciesET = findViewById<Spinner>(R.id.createObservation_BirdDropDown)
-        var quantityET=findViewById<TextView>(R.id.createObservation_Qantity)
-        var birdDescriptionET= findViewById<EditText>(R.id.createObservation_Description)
 
-
-        val birdSpecies = birdSpeciesET.selectedItem.toString().toString().trim()
+        uploadImageToFirebaseStorage(imageBitmap)
+        val spinnerIndex = birdSpeciesET.selectedItemPosition
+        var birdSpecies= birdSpeciesET.selectedItem.toString().trim()
         val birdDescription = birdDescriptionET.text.toString().trim()
 
 
         var isValid = true
 
-        if (birdSpecies.isEmpty()) {
+        if (spinnerIndex==0) {
             isValid = false
             Toast.makeText(
                 this@createObservation,
-                "select a bird",
+                "select a bird species",
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -209,22 +287,21 @@ class createObservation : AppCompatActivity() {
             birdDescriptionET.error = "bird Description"
             isValid = false
         }
-        if(PhotoUrl.isEmpty()){
-            Toast.makeText(
-                this@createObservation,
-                "Itake a picture of the bird",
-                Toast.LENGTH_SHORT
-            ).show()
-            isValid= false
-
-        }
         if(isValid){
 
             observation.setBirdSpecies(birdSpecies)
             observation.setDescription(birdDescription)
             observation.setQuantity(counter)
             observation.setPictureID(PhotoUrl)
+            observation.setObservationDate(getCurrentDateTime())
         }
         return isValid
+    }
+    private fun setupNavigator(settings_Maps: Int, page: Class<*>) {
+        val button = findViewById<LinearLayout>(settings_Maps)
+        button.setOnClickListener {
+            val intent = Intent(this, page)
+            startActivity(intent)
+        }
     }
 }

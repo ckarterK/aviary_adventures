@@ -20,19 +20,22 @@
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="145dp"
+            android:layout_marginTop="32dp"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="4dp"
                 android:text="observation List"
                 android:textSize="48dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.492"
                 app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -79,15 +82,16 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout3"
             android:layout_width="410dp"
-            android:layout_height="589dp"
+            android:layout_height="550dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayoutCompat2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
+            app:layout_constraintStart_toStartOf="parent">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/ObservationList_RecyclerView"
                 android:layout_width="408dp"
                 android:layout_height="587dp"
+                android:background="#9E2D0A"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -96,13 +100,12 @@
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/linearLayoutCompat2"
-            android:layout_width="414dp"
-            android:layout_height="115dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+            app:layout_constraintStart_toStartOf="parent">
 
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -116,9 +119,11 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <LinearLayout
+                android:id="@+id/profile_ObservationList"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="#4CAF50"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -127,20 +132,22 @@
                     android:id="@+id/imageView11"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    app:srcCompat="@drawable/baseline_settings_24"
-                    tools:srcCompat="@drawable/baseline_person_24" />
+                    app:srcCompat="@drawable/baseline_person_24" />
 
                 <TextView
                     android:id="@+id/textView12"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Profile" />
+                    android:text="Profile"
+                    android:textAlignment="center" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/settings_ObservationList"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="#4CAF50"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -154,14 +161,17 @@
                     android:id="@+id/textView16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="settings" />
+                    android:text="settings"
+                    android:textAlignment="center" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/map_ObservationList"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="#4CAF50"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -169,20 +179,22 @@
                     android:id="@+id/imageView16"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    app:srcCompat="@drawable/baseline_settings_24"
-                    tools:srcCompat="@drawable/baseline_map_24" />
+                    app:srcCompat="@drawable/baseline_map_24" />
 
                 <TextView
                     android:id="@+id/textView17"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="map" />
+                    android:text="map"
+                    android:textAlignment="center" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/recrdobservation_ObservationList"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="#4CAF50"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -190,20 +202,22 @@
                     android:id="@+id/imageView18"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    app:srcCompat="@drawable/baseline_settings_24"
-                    tools:srcCompat="@drawable/baseline_architecture_24" />
+                    app:srcCompat="@drawable/baseline_architecture_24" />
 
                 <TextView
                     android:id="@+id/textView18"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="record\nobservation" />
+                    android:text="record\nobservation"
+                    android:textAlignment="center" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/observationList_ObservationList"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="#4CAF50"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -211,16 +225,15 @@
                     android:id="@+id/imageView19"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    app:srcCompat="@drawable/baseline_settings_24"
-                    tools:srcCompat="@drawable/baseline_list_24" />
+                    app:srcCompat="@drawable/baseline_list_24" />
 
                 <TextView
                     android:id="@+id/textView19"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="observation\nlist" />
+                    android:text="observation\nlist"
+                    android:textAlignment="center" />
             </LinearLayout>
-
 
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.constraintlayout.widget.ConstraintLayout>

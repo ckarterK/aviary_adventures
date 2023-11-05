@@ -1,5 +1,7 @@
 package com.example.myapplication
 
+import com.example.myapplication.Models.User
+
 class Observation {
 
     // Instance fields as mutable lists
@@ -17,6 +19,10 @@ class Observation {
         result["description"] = description
         result["quantity"] = quantity
         result["pictureID"] = pictureID
+        result["latitude"]=User.staticUser.getLocation().lat
+        result["longitude"]=User.staticUser.getLocation().lng
+        result["date"]=observationDate
+
 
         return result
     }

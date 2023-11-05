@@ -15,7 +15,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="409dp"
-            android:layout_height="631dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -27,8 +27,10 @@
                 android:layout_width="278dp"
                 android:layout_height="59dp"
                 android:layout_marginStart="62dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="69dp"
+                android:layout_marginBottom="32dp"
+                app:layout_constraintBottom_toTopOf="@+id/createObservation_Qantity"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -38,14 +40,14 @@
                 android:id="@+id/createObservation_Qantity"
                 android:layout_width="158dp"
                 android:layout_height="59dp"
+                android:layout_marginBottom="32dp"
                 android:gravity="center"
                 android:text="Quantity"
                 android:textSize="24dp"
                 app:layout_constraintBottom_toTopOf="@+id/createObservation_Description"
                 app:layout_constraintEnd_toStartOf="@+id/createObservation_minusQuantity"
                 app:layout_constraintHorizontal_bias="0.421"
-                app:layout_constraintStart_toEndOf="@+id/createObservation_addQuantity"
-                app:layout_constraintTop_toBottomOf="@+id/createObservation_BirdDropDown" />
+                app:layout_constraintStart_toEndOf="@+id/createObservation_addQuantity" />
 
 
             <ImageView
@@ -53,11 +55,9 @@
                 android:layout_width="57dp"
                 android:layout_height="59dp"
                 android:layout_marginStart="52dp"
-                android:layout_marginTop="37dp"
                 android:layout_marginBottom="32dp"
                 app:layout_constraintBottom_toTopOf="@+id/createObservation_Description"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/createObservation_BirdDropDown"
                 app:srcCompat="@drawable/baseline_add_24" />
 
             <ImageView
@@ -65,22 +65,21 @@
                 android:layout_width="63dp"
                 android:layout_height="59dp"
                 android:layout_marginEnd="52dp"
+                android:layout_marginBottom="32dp"
                 app:layout_constraintBottom_toTopOf="@+id/createObservation_Description"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/createObservation_BirdDropDown"
-                app:layout_constraintVertical_bias="0.507"
                 app:srcCompat="@drawable/baseline_horizontal_rule_24" />
 
             <EditText
                 android:id="@+id/createObservation_Description"
-                android:layout_height="59dp"
                 android:layout_width="300dp"
+                android:layout_height="59dp"
                 android:layout_marginStart="66dp"
-                android:layout_marginTop="32dp"
                 android:layout_marginEnd="65dp"
-                android:layout_marginBottom="57dp"
+                android:layout_marginBottom="32dp"
                 android:ems="10"
                 android:gravity="start|top"
+                android:hint="write a brief description about the bird"
                 android:inputType="textMultiLine"
                 app:layout_constraintBottom_toTopOf="@+id/ButtonPicture"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -91,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
-                android:layout_marginBottom="52dp"
+                android:layout_marginBottom="32dp"
                 android:text="add Species"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayoutCompat"
                 app:layout_constraintEnd_toStartOf="@+id/createObservation_Record"
@@ -101,7 +100,7 @@
                 android:id="@+id/createObservation_Record"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="52dp"
+                android:layout_marginBottom="32dp"
                 android:text="Record"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayoutCompat"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -109,8 +108,8 @@
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/linearLayoutCompat"
-                android:layout_width="414dp"
-                android:layout_height="115dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -120,6 +119,7 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:background="#4CAF50"
                     android:orientation="vertical"
                     tools:layout_editor_absoluteX="1dp"
                     tools:layout_editor_absoluteY="1dp">
@@ -128,9 +128,11 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <LinearLayout
+                    android:id="@+id/profile_CreateObservation"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="#4CAF50"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
@@ -139,20 +141,22 @@
                         android:id="@+id/imageView11"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        app:srcCompat="@drawable/baseline_settings_24"
-                        tools:srcCompat="@drawable/baseline_person_24" />
+                        app:srcCompat="@drawable/baseline_person_24" />
 
                     <TextView
                         android:id="@+id/textView12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Profile" />
+                        android:text="Profile"
+                        android:textAlignment="center" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/settings_CreateObservation"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="#4CAF50"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
@@ -166,14 +170,17 @@
                         android:id="@+id/textView16"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="settings" />
+                        android:text="settings"
+                        android:textAlignment="center" />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/map_CreateObservation"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="#4CAF50"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
@@ -181,20 +188,22 @@
                         android:id="@+id/imageView16"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        app:srcCompat="@drawable/baseline_settings_24"
-                        tools:srcCompat="@drawable/baseline_map_24" />
+                        app:srcCompat="@drawable/baseline_map_24" />
 
                     <TextView
                         android:id="@+id/textView17"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="map" />
+                        android:text="map"
+                        android:textAlignment="center" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/recrdobservation_CreateObservation"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="#4CAF50"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
@@ -202,20 +211,22 @@
                         android:id="@+id/imageView18"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        app:srcCompat="@drawable/baseline_settings_24"
-                        tools:srcCompat="@drawable/baseline_architecture_24" />
+                        app:srcCompat="@drawable/baseline_architecture_24" />
 
                     <TextView
                         android:id="@+id/textView18"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="record\nobservation" />
+                        android:text="record\nobservation"
+                        android:textAlignment="center" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/observationList_CreateObservation"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="#4CAF50"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
@@ -223,14 +234,14 @@
                         android:id="@+id/imageView19"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        app:srcCompat="@drawable/baseline_settings_24"
-                        tools:srcCompat="@drawable/baseline_list_24" />
+                        app:srcCompat="@drawable/baseline_list_24" />
 
                     <TextView
                         android:id="@+id/textView19"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="observation\nlist" />
+                        android:text="observation\nlist"
+                        android:textAlignment="center" />
                 </LinearLayout>
 
 
@@ -253,18 +264,19 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="43dp"
+            android:layout_marginBottom="32dp"
             android:text="create observation"
-            android:textSize="24dp"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/textView5"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="306dp"
             android:layout_height="128dp"
-            android:layout_marginTop="55dp"
+            android:layout_marginTop="32dp"
             android:text="&quot;Capture the Moment – Snap, Record, Cherish! Document Your Feathered Friends&quot;"
             android:textSize="24dp"
             app:layout_constraintEnd_toEndOf="parent"
