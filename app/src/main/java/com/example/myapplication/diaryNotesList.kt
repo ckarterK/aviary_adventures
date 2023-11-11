@@ -3,31 +3,29 @@ package com.example.myapplication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.widget.Button
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.Models.Observation
 import com.example.myapplication.Models.User
-import com.example.myapplication.RecyclerViewModels.observationList
+import com.example.myapplication.Models.diaryNotes
+import com.example.myapplication.RecyclerViewModels.DiaryNotesList
+import com.example.myapplication.RecyclerViewModels.diaryNotesAdapter
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.text.SimpleDateFormat
+import java.util.Date
 
+class diaryNotesList : AppCompatActivity() {
 
-class ObservationListPage : AppCompatActivity() {
-
-    private lateinit var newRecyclerView:RecyclerView
-    private var newObservationList =ArrayList<observationList>()
-    private lateinit var dateList:ArrayList<String>
-    private lateinit var obseredSpeciesList:ArrayList<String>
-    private lateinit var observerBirdsList:ArrayList<String>
-    private var observationsList = ArrayList<Observation>()
+    private lateinit var newRecyclerView: RecyclerView
+    private var newDiaryNotes =ArrayList<DiaryNotesList>()
+    private var diaryNotesList = ArrayList<diaryNotes>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_observation_list_page)
-
+        setContentView(R.layout.activity_diary_notes_list)
 
         setupNavigator(R.id.profile_ObservationList,settingsPage::class.java)
         setupNavigator(R.id.settings_ObservationList,settingsPage::class.java)
@@ -35,32 +33,34 @@ class ObservationListPage : AppCompatActivity() {
         setupNavigator(R.id.recrdobservation_ObservationList,createObservation::class.java)
         setupNavigator(R.id.observationList_ObservationList,ObservationListPage::class.java)
 
-        newRecyclerView= findViewById(R.id.ObservationList_RecyclerView)
-        newRecyclerView.layoutManager=LinearLayoutManager(this)
+        newRecyclerView= findViewById(R.id.diaryNotes_RecyclerView)
+        newRecyclerView.layoutManager= LinearLayoutManager(this)
         newRecyclerView.setHasFixedSize(true)
 
         val databaseRef = FirebaseDatabase.getInstance().reference
         val uid = User.staticUser?.getUid().toString()
-        val categoryPath = "Users/$uid/observed List"
+        val categoryPath = "Users/$uid/diary notes"
 
+        var newDiaryNote= findViewById<Button>(R.id.addDiaryNote)
         databaseRef.child(categoryPath).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (childSnapshot in dataSnapshot.children) {
                     // Loop through the child nodes (each represents an observation)
-                    val birdSpecies = childSnapshot.child("birdSpecies").value.toString()
-                    val description = childSnapshot.child("description").value.toString()
-                    val quantity = childSnapshot.child("quantity").getValue(Int::class.java)
-                    val pictureID = childSnapshot.child("pictureID").value.toString()
+                    val diarySubject = childSnapshot.child("subject").value.toString()
+                    val diaryLocation = childSnapshot.child("location").value.toString()
+                    val diaryDescription = childSnapshot.child("description").value.toString()
+                    var diaryDate = childSnapshot.child("date").value.toString()
 
-                    // Create an Observation object and add it to the list
-                    val observation = Observation()
-                    observation.setBirdSpecies(birdSpecies)
-                    observation.setDescription(description)
-                    observation.setQuantity(quantity ?: 0) // Use a default value if quantity is null
-                    observation.setPictureID(pictureID)
+                    val dateFormat = SimpleDateFormat("yyyy-MM-dd") // Define your desired date format
 
-                    observationsList.add(observation)
-                    Log.d("datasnapshit","${birdSpecies}")
+                    val Date: Date = dateFormat.parse(diaryDate)
+
+                    val formattedDate: String = dateFormat.format(Date)
+
+                   var diaryNotes=diaryNotes(diarySubject,diaryLocation,formattedDate,diaryDescription)
+
+                    diaryNotesList.add(diaryNotes)
+
                 }
                 getUserData()
                 // Now you have a list of observations to work with
@@ -73,14 +73,21 @@ class ObservationListPage : AppCompatActivity() {
             }
         })
 
-
+        newDiaryNote.setOnClickListener {
+            val intent = Intent(this, DiaryNotes::class.java)
+            startActivity(intent)
+        }
     }
     private fun getUserData(){
-        for(item in observationsList){
-            val observation= observationList(observedBirds = "observed birds: ${item.getQuantity().toString()}", observedSpecies = "observed species: ${item.getBirdSpecies()}", date = "22 March 2023")
-            newObservationList.add(observation)
+        for(item in diaryNotesList){
+            val diaryNote= DiaryNotesList(
+                "Date:${item.getdate()}",
+                "Subject:${item.getSubject()}",
+                "Location:${item.getlocation()}",
+                "Description:\n ${item.getdescription()}")
+            newDiaryNotes.add(diaryNote)
         }
-        newRecyclerView.adapter=Myadapter(newObservationList)
+        newRecyclerView.adapter= diaryNotesAdapter(newDiaryNotes)
     }
 
     private fun setupNavigator(settings_Maps: Int, page: Class<*>) {
@@ -90,4 +97,5 @@ class ObservationListPage : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
 }

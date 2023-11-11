@@ -1,6 +1,5 @@
 package com.example.myapplication.Models
 
-import com.example.myapplication.Observation
 import com.google.maps.model.LatLng
 
 class User {

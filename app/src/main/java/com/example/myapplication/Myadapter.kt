@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.RecyclerViewModels.observationList
 
 class Myadapter(private val observationList:ArrayList<observationList>):
     RecyclerView.Adapter<Myadapter.MyViewHolder>()
@@ -23,8 +24,8 @@ class Myadapter(private val observationList:ArrayList<observationList>):
 
     class MyViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         var date: TextView=itemView.findViewById(R.id.date)
-        var observerdSpecies: TextView=itemView.findViewById(R.id.observedSpecies)
-        var observeredBirds: TextView=itemView.findViewById(R.id.observerdBirds)
+        var observerdSpecies: TextView=itemView.findViewById(R.id.subject)
+        var observeredBirds: TextView=itemView.findViewById(R.id.location)
 
     }
 

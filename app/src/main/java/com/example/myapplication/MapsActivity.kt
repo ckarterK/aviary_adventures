@@ -22,6 +22,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.myapplication.Models.User
+import com.example.myapplication.Models.diaryNotes
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -68,7 +69,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
         setContentView(binding.root)
 
         setupNavigator(R.id.profile_Maps,settingsPage::class.java)
-        setupNavigator(R.id.settings_Maps,settingsPage::class.java)
+        setupNavigator(R.id.settings_Maps,diaryNotesList::class.java)
         setupNavigator(R.id.map_Maps,MapsActivity::class.java)
         setupNavigator(R.id.recrdobservation_Maps,createObservation::class.java)
         setupNavigator(R.id.observationList_Maps,ObservationListPage::class.java)

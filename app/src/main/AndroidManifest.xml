@@ -17,45 +17,48 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".diaryNotesList"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light"/>
+        <activity
+            android:name=".DiaryNotes"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light"/>
+        <activity
             android:name=".welcomePage"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".ObservationListPage"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light"
-            />
+            android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name=".createObservation"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light"
-            />
+            android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name=".updateProfilePage"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light"/>
+            android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name=".settingsPage"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light"/>
+            android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name=".RegisterPage"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light"/>
+            android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name=".LoginPage"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light"/>
+            android:theme="@style/Theme.AppCompat.Light" />
         <!--
-
              To get one, follow the directions here:
 
                 https://developers.google.com/maps/documentation/android-sdk/get-api-key
@@ -72,15 +75,12 @@
             android:name=".MapsActivity"
             android:exported="true"
             android:label="@string/title_activity_maps"
-            android:theme="@style/Theme.AppCompat.Light">
-
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.NoTitleBar">
-        </activity>
+            android:theme="@android:style/Theme.NoTitleBar" />
     </application>
 
 </manifest>
