@@ -9,8 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.Models.User
 import com.example.myapplication.Models.diaryNotes
-import com.example.myapplication.RecyclerViewModels.DiaryNotesList
-import com.example.myapplication.RecyclerViewModels.diaryNotesAdapter
+import com.example.myapplication.diaryNotes_RecyclerView.DiaryNotesList
+import com.example.myapplication.diaryNotes_RecyclerView.diaryNotesAdapter
+import com.example.myapplication.diaryNotes_RecyclerView.noDiaryNotesAdapter
+import com.example.myapplication.diaryNotes_RecyclerView.noDiaryNotesList
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -22,6 +24,7 @@ class diaryNotesList : AppCompatActivity() {
 
     private lateinit var newRecyclerView: RecyclerView
     private var newDiaryNotes =ArrayList<DiaryNotesList>()
+    private var noDiaryNotes =ArrayList<noDiaryNotesList>()
     private var diaryNoteList = ArrayList<diaryNotes>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,34 +45,43 @@ class diaryNotesList : AppCompatActivity() {
         val categoryPath = "Users/$uid/diary notes"
 
         var newDiaryNote= findViewById<Button>(R.id.addDiaryNote)
-        databaseRef.child(categoryPath).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (childSnapshot in dataSnapshot.children) {
-                    // Loop through the child nodes (each represents an observation)
-                    val diarySubject = childSnapshot.child("subject").value.toString()
-                    val diaryLocation = childSnapshot.child("location").value.toString()
-                    val diaryDescription = childSnapshot.child("description").value.toString()
-                    var diaryDate = childSnapshot.child("date").value.toString()
+        databaseRef.child(categoryPath).addListenerForSingleValueEvent(object : ValueEventListener
+        {
+            override fun onDataChange(dataSnapshot: DataSnapshot)
+            {
+                if (dataSnapshot.exists())
+                {
+                    for (childSnapshot in dataSnapshot.children)
+                    {
+                        // Loop through the child nodes (each represents an observation)
+                        val diarySubject = childSnapshot.child("subject").value.toString()
+                        val diaryLocation = childSnapshot.child("location").value.toString()
+                        val diaryDescription = childSnapshot.child("description").value.toString()
+                        var diaryDate = childSnapshot.child("date").value.toString()
 
-                    val dateFormat = SimpleDateFormat("yyyy-MM-dd") // Define your desired date format
+                        val dateFormat =
+                            SimpleDateFormat("yyyy-MM-dd") // Define your desired date format
 
-                    val Date: Date = dateFormat.parse(diaryDate)
+                        val Date: Date = dateFormat.parse(diaryDate)
 
-                    val formattedDate: String = dateFormat.format(Date)
+                        val formattedDate: String = dateFormat.format(Date)
 
-                   var diaryNotes=diaryNotes(diarySubject,diaryLocation,formattedDate,diaryDescription)
+                        var diaryNotes =
+                            diaryNotes(diarySubject, diaryLocation, formattedDate, diaryDescription)
 
-                    diaryNoteList.add(diaryNotes)
+                        diaryNoteList.add(diaryNotes)
 
+                    }
+                    getUserData()
+                    // Now you have a list of observations to work with
+                    // You can process or display them as needed
+                }else{
+                    emptyRecyclerView()
                 }
-                getUserData()
-                // Now you have a list of observations to work with
-                // You can process or display them as needed
             }
+            override fun onCancelled(databaseError: DatabaseError)
+            {
 
-            override fun onCancelled(databaseError: DatabaseError) {
-                // Handle any errors that occur while retrieving data
-                // For example, you can log an error message
             }
         })
 
@@ -89,6 +101,14 @@ class diaryNotesList : AppCompatActivity() {
         }
         newRecyclerView.adapter= diaryNotesAdapter(newDiaryNotes)
     }
+
+    private fun emptyRecyclerView(){
+       var noDiaryNote =noDiaryNotesList("you dont have any diary notes ")
+        noDiaryNotes.add(noDiaryNote)
+        newRecyclerView.adapter=noDiaryNotesAdapter(noDiaryNotes)
+        }
+
+
 
     private fun setupNavigator(settings_Maps: Int, page: Class<*>) {
         val button = findViewById<LinearLayout>(settings_Maps)

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
 import com.example.myapplication.Models.User
 import com.example.myapplication.Models.diaryNotes
@@ -18,7 +19,11 @@ class DiaryNotes : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diary_notes)
 
-
+        setupNavigator(R.id.profile_diaryNote,diaryNotesList::class.java)
+        setupNavigator(R.id.settings_diaryNote,settingsPage::class.java)
+        setupNavigator(R.id.map_diaryNote,MapsActivity::class.java)
+        setupNavigator(R.id.recrdobservation_diaryNote,createObservation::class.java)
+        setupNavigator(R.id.observationList_diaryNote,ObservationListPage::class.java)
 
         var add_button=findViewById<Button>(R.id.add_diaryNotes)
         var cancel_button=findViewById<Button>(R.id.cancel_diaryNotes)
@@ -93,6 +98,13 @@ class DiaryNotes : AppCompatActivity() {
         val currentDate = Date()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss") // Define your desired date and time format
         return dateFormat.format(currentDate)
+    }
+    private fun setupNavigator(settings_Maps: Int, page: Class<*>) {
+        val button = findViewById<LinearLayout>(settings_Maps)
+        button.setOnClickListener {
+            val intent = Intent(this, page)
+            startActivity(intent)
+        }
     }
 
 }

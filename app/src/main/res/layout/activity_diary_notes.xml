@@ -9,12 +9,87 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#4CAF50"
-        android:backgroundTint="#4CAF50"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="#FF6BB1B3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="629dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/rounded_green_constraint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView24">
+
+            <EditText
+                android:id="@+id/description_diaryNotes"
+                android:layout_width="360dp"
+                android:layout_height="155dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/rounded_edittext"
+                android:ems="10"
+                android:hint="description"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/location_diaryNotes" />
+
+            <EditText
+                android:id="@+id/location_diaryNotes"
+                android:layout_width="350dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/rounded_edittext"
+                android:ems="10"
+                android:hint="Location"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/subject_diaryNotes" />
+
+            <EditText
+                android:id="@+id/subject_diaryNotes"
+                android:layout_width="350dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/rounded_edittext"
+                android:ems="10"
+                android:hint="subject"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/add_diaryNotes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="100dp"
+                android:backgroundTint="#FFFFFF"
+                android:text="add"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toStartOf="@+id/cancel_diaryNotes"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/description_diaryNotes" />
+
+            <Button
+                android:id="@+id/cancel_diaryNotes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="66dp"
+                android:backgroundTint="#FFFFFF"
+                android:text="cancel"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/add_diaryNotes"
+                app:layout_constraintTop_toBottomOf="@+id/description_diaryNotes" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout11"
@@ -29,8 +104,8 @@
                 android:id="@+id/linearLayoutCompat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:background="@drawable/rounded_brown_constraint"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
@@ -47,7 +122,7 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <LinearLayout
-                    android:id="@+id/profile_CreateObservation"
+                    android:id="@+id/profile_diaryNote"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -70,7 +145,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/settings_CreateObservation"
+                    android:id="@+id/settings_diaryNote"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -93,7 +168,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/map_CreateObservation"
+                    android:id="@+id/map_diaryNote"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -115,7 +190,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/recrdobservation_CreateObservation"
+                    android:id="@+id/recrdobservation_diaryNote"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -137,7 +212,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/observationList_CreateObservation"
+                    android:id="@+id/observationList_diaryNote"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -167,95 +242,31 @@
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="86dp"
             android:layout_marginTop="32dp"
+            android:layout_marginEnd="85dp"
             android:text="diary notes"
+            android:textColor="#FF000000"
             android:textSize="48dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/subject_diaryNotes"
-            android:layout_width="350dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="15dp"
-            android:background="@drawable/rounded_edittext"
-            android:ems="10"
-            android:hint="subject"
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView24" />
-
-        <EditText
-            android:id="@+id/description_diaryNotes"
-            android:layout_width="360dp"
-            android:layout_height="155dp"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/rounded_edittext"
-            android:ems="10"
-            android:gravity="start|top"
-            android:inputType="textMultiLine"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/location_diaryNotes" />
-
         <TextView
             android:id="@+id/textView24"
             android:layout_width="306dp"
             android:layout_height="128dp"
+            android:layout_marginStart="53dp"
             android:layout_marginTop="32dp"
+            android:layout_marginEnd="52dp"
             android:text="Capturing Nature's Symphony: Your Personal Birdsong Diary in Every Fluttering Page."
+            android:textColor="#FF000000"
             android:textSize="24dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-        <EditText
-            android:id="@+id/location_diaryNotes"
-            android:layout_width="350dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="17dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="22dp"
-            android:background="@drawable/rounded_edittext"
-            android:ems="10"
-            android:hint="Location"
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/subject_diaryNotes" />
-
-        <Button
-            android:id="@+id/add_diaryNotes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="32dp"
-            android:text="add"
-            android:backgroundTint="#FFFFFF"
-            android:textColor="#000000"
-            app:layout_constraintEnd_toStartOf="@+id/cancel_diaryNotes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/description_diaryNotes" />
-
-        <Button
-            android:id="@+id/cancel_diaryNotes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="180dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
-            android:text="cancel"
-            android:backgroundTint="#FFFFFF"
-            android:textColor="#000000"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/add_diaryNotes"
-            app:layout_constraintTop_toBottomOf="@+id/description_diaryNotes" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

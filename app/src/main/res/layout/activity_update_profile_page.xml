@@ -13,7 +13,7 @@
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"
-        android:background="@color/white"
+        android:background="@color/green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -26,9 +26,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="130dp"
-            android:layout_marginTop="151dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="130dp"
             android:text="update Profile"
+            android:textColor="#000000"
             android:textSize="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +51,7 @@
             android:id="@+id/constraintLayout9"
             android:layout_width="410dp"
             android:layout_height="428dp"
-            android:background="@color/white"
+            android:background="@drawable/rounded_brown_constraint"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -60,68 +61,75 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="66dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/rounded_edittext"
                 android:layout_marginEnd="66dp"
-                android:layout_marginBottom="24dp"
                 android:ems="10"
                 android:hint="fullName"
                 android:inputType="text"
                 android:textSize="24dp"
-                app:layout_constraintBottom_toTopOf="@+id/updateProfile_username"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/updateProfile_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="66dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="66dp"
-                android:layout_marginBottom="24dp"
+                android:background="@drawable/rounded_edittext"
                 android:ems="10"
                 android:hint="username"
                 android:inputType="text"
                 android:textSize="24dp"
-                app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/updateProfile_fullName" />
 
             <EditText
                 android:id="@+id/editTextTextPassword"
-                android:layout_width="278dp"
+                android:layout_width="350dp"
                 android:layout_height="59dp"
                 android:layout_marginStart="66dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="66dp"
-                android:layout_marginBottom="24dp"
                 android:ems="10"
                 android:hint="Password"
                 android:inputType="textPassword"
+                android:background="@drawable/rounded_edittext"
                 android:textSize="24dp"
-                app:layout_constraintBottom_toTopOf="@+id/updateProfile_saveBtn"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/updateProfile_username" />
 
             <Button
                 android:id="@+id/updateProfile_discard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="64dp"
                 android:layout_marginEnd="53dp"
-                android:layout_marginBottom="27dp"
                 android:text="discard"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:backgroundTint="#FFFFFF"
+                android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/updateProfile_saveBtn" />
+                app:layout_constraintStart_toEndOf="@+id/updateProfile_saveBtn"
+                app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
 
             <Button
                 android:id="@+id/updateProfile_saveBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="52dp"
+                android:layout_marginTop="64dp"
                 android:layout_marginEnd="129dp"
-                android:layout_marginBottom="24dp"
+                android:backgroundTint="#FFFFFF"
+                android:textColor="#000000"
                 android:text="save"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/updateProfile_discard"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -133,6 +141,7 @@
             android:layout_marginTop="52dp"
             android:layout_marginEnd="22dp"
             android:text="Embark on Your Birdwatching Adventure – Unlock the Avian Realm and Feather Your Nest of Knowledge!"
+            android:textColor="#000000"
             android:textSize="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

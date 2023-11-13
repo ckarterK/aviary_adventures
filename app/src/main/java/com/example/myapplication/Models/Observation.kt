@@ -37,6 +37,7 @@ class Observation {
         birdSpecies=species
     }
 
+
     // Getter methods for description
     fun getDescription(): String {
         return description
