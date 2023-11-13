@@ -7,12 +7,8 @@
     tools:context=".updateProfilePage">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="409dp"
-        android:layout_height="912dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,17 +27,20 @@
             android:text="update Profile"
             android:textColor="#000000"
             android:textSize="24dp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="129dp"
-            android:layout_height="130dp"
-            android:layout_marginStart="140dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="140dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/rounded_imageview"
+            android:padding="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/baseline_person_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
@@ -49,7 +48,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout9"
-            android:layout_width="410dp"
+            android:layout_width="match_parent"
             android:layout_height="428dp"
             android:background="@drawable/rounded_brown_constraint"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -61,9 +60,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="66dp"
-                android:layout_marginTop="32dp"
-                android:background="@drawable/rounded_edittext"
+                android:layout_marginTop="108dp"
                 android:layout_marginEnd="66dp"
+                android:background="@drawable/rounded_edittext"
                 android:ems="10"
                 android:hint="fullName"
                 android:inputType="text"
@@ -73,36 +72,20 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/updateProfile_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="66dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="66dp"
-                android:background="@drawable/rounded_edittext"
-                android:ems="10"
-                android:hint="username"
-                android:inputType="text"
-                android:textSize="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/updateProfile_fullName" />
-
-            <EditText
-                android:id="@+id/editTextTextPassword"
+                android:id="@+id/updateProfile_password"
                 android:layout_width="350dp"
                 android:layout_height="59dp"
                 android:layout_marginStart="66dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="66dp"
+                android:background="@drawable/rounded_edittext"
                 android:ems="10"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:background="@drawable/rounded_edittext"
                 android:textSize="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/updateProfile_username" />
+                app:layout_constraintTop_toBottomOf="@+id/updateProfile_fullName" />
 
             <Button
                 android:id="@+id/updateProfile_discard"
@@ -110,12 +93,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="64dp"
                 android:layout_marginEnd="53dp"
-                android:text="discard"
                 android:backgroundTint="#FFFFFF"
+                android:text="discard"
                 android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/updateProfile_saveBtn"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+                app:layout_constraintTop_toBottomOf="@+id/updateProfile_password" />
 
             <Button
                 android:id="@+id/updateProfile_saveBtn"
@@ -125,24 +108,25 @@
                 android:layout_marginTop="64dp"
                 android:layout_marginEnd="129dp"
                 android:backgroundTint="#FFFFFF"
-                android:textColor="#000000"
                 android:text="save"
+                android:textColor="#000000"
                 app:layout_constraintEnd_toStartOf="@+id/updateProfile_discard"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+                app:layout_constraintTop_toBottomOf="@+id/updateProfile_password" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="363dp"
-            android:layout_height="57dp"
+            android:layout_width="377dp"
+            android:layout_height="153dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="22dp"
-            android:text="Embark on Your Birdwatching Adventure – Unlock the Avian Realm and Feather Your Nest of Knowledge!"
+            android:text="Let's get started on updating your details! Just a heads up – make sure to input the necessary information in the field you wish to change. "
             android:textColor="#000000"
             android:textSize="24dp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />

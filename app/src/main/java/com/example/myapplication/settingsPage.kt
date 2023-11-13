@@ -29,6 +29,7 @@ class settingsPage : AppCompatActivity() {
         hasMetricUnitPreference()
         hasRadiusPreference()
 
+        var editProfileBtn=findViewById<Button>(R.id.settings_EditProfile)
 
         setupMeasurementBtn(R.id.settings_kilometersBtn, User.Measurement.KILOMETERS)
         setupMeasurementBtn(R.id.settings_milesBtn, User.Measurement.MILES)
@@ -44,6 +45,12 @@ class settingsPage : AppCompatActivity() {
         setupNavigator(R.id.map_Settings,MapsActivity::class.java)
         setupNavigator(R.id.recordObservation_Settings,createObservation::class.java)
         setupNavigator(R.id.observationList_Settings,ObservationListPage::class.java)
+
+        editProfileBtn.setOnClickListener {
+
+            val intent = Intent(this, updateProfilePage::class.java)
+            startActivity(intent)
+        }
 
 
     }
