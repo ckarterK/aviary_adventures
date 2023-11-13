@@ -7,44 +7,25 @@
     tools:context=".diaryNotesList">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="409dp"
-        android:layout_height="912dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"
+        android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
-            android:layout_width="match_parent"
-            android:layout_height="145dp"
-            android:layout_marginTop="32dp"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="diary notes"
-                android:textSize="48dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout4"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView9">
 
             <Button
                 android:id="@+id/filterBy_obervationListPage"
@@ -69,8 +50,8 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/ObservationList_filterRecyclerView"
-                    android:layout_width="283dp"
-                    android:layout_height="58dp"
+                    android:layout_width="291dp"
+                    android:layout_height="51dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -80,35 +61,28 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout3"
-            android:layout_width="410dp"
-            android:layout_height="550dp"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayoutCompat2"
+            android:layout_width="404dp"
+            android:layout_height="517dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/diaryNotes_RecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="449dp"
-                android:background="#9E2D0A"
+                android:layout_width="409dp"
+                android:layout_height="519dp"
+                android:background="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/addDiaryNote"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="add diary notes"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/diaryNotes_RecyclerView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/linearLayoutCompat2"
             android:layout_width="match_parent"
+            android:background="@drawable/rounded_brown_constraint"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -127,11 +101,10 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <LinearLayout
-                android:id="@+id/profile_ObservationList"
+                android:id="@+id/profile_diaryNotesList"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#4CAF50"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -140,22 +113,21 @@
                     android:id="@+id/imageView11"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    app:srcCompat="@drawable/baseline_person_24" />
+                    app:srcCompat="@drawable/baseline_menu_book_24" />
 
                 <TextView
                     android:id="@+id/textView12"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Profile"
+                    android:text="nature \n diary"
                     android:textAlignment="center" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/settings_ObservationList"
+                android:id="@+id/settings_diaryNotesList"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#4CAF50"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -175,11 +147,10 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/map_ObservationList"
+                android:id="@+id/map_diaryNotesList"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#4CAF50"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -198,11 +169,10 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/recrdobservation_ObservationList"
+                android:id="@+id/recrdobservation_diaryNotesList"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#4CAF50"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -221,11 +191,10 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/observationList_ObservationList"
+                android:id="@+id/observationList_diaryNotesList"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#4CAF50"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -244,5 +213,26 @@
             </LinearLayout>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="diary notes"
+            android:textColor="#040404"
+            android:textSize="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/addDiaryNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="add diary notes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

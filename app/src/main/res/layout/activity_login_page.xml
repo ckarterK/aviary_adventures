@@ -1,70 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginPage">
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="409dp"
-        android:layout_height="912dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
-        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#70A94E"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="110dp"
-            android:layout_marginEnd="111dp"
-            android:layout_marginBottom="55dp"
+            android:layout_marginStart="176dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="175dp"
             android:text="Login"
             android:textSize="24dp"
-            app:layout_constraintBottom_toTopOf="@+id/imageView3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="410dp"
-            android:layout_height="428dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="78dp"
-            android:background="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2">
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout13"
+            android:layout_width="411dp"
+            android:layout_height="441dp"
+            android:background="@drawable/rounded_brown_constraint"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
             <EditText
                 android:id="@+id/LoginPage_Email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="350dp"
+                android:layout_height="59dp"
                 android:layout_marginTop="32dp"
+                android:background="@drawable/rounded_edittext"
                 android:ems="10"
                 android:hint="Email e.g: sam@gmail.com"
                 android:inputType="textEmailAddress"
                 android:textSize="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.491"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/LoginPage_Password"
-                android:layout_width="278dp"
+                android:layout_width="350dp"
                 android:layout_height="59dp"
-                android:layout_marginStart="98dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginEnd="103dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/rounded_edittext"
                 android:ems="10"
                 android:hint="password"
                 android:inputType="textPassword"
@@ -77,8 +71,10 @@
                 android:id="@+id/LoginPage_LoginButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="60dp"
+                android:backgroundTint="#FFFFFF"
                 android:text="Login"
+                android:textColor="#000000"
                 android:textSize="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -88,8 +84,10 @@
                 android:id="@+id/LoginPage_RegisterButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="29dp"
+                android:backgroundTint="#FFFFFF"
                 android:text="create a new account"
+                android:textColor="#000000"
                 android:textSize="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -98,25 +96,32 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="363dp"
-            android:layout_height="57dp"
-            android:layout_marginTop="48dp"
+            android:layout_width="323dp"
+            android:layout_height="123dp"
+            android:layout_marginTop="32dp"
             android:text="Embark on Your Birdwatching Adventure – Unlock the Avian Realm and Feather Your Nest of Knowledge!"
             android:textSize="24dp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+            app:layout_constraintTop_toBottomOf="@+id/yourImageView" />
+
 
         <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="138dp"
-            android:layout_marginTop="54dp"
-            android:layout_marginEnd="143dp"
+            android:id="@+id/yourImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="131dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="130dp"
+            android:background="@drawable/rounded_imageview"
+            android:padding="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/baseline_person_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            tools:srcCompat="@tools:sample/avatars"/>
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

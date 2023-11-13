@@ -7,78 +7,46 @@
     tools:context=".createObservation">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="409dp"
-        android:layout_height="912dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
+            android:layout_width="match_parent"
+            android:layout_height="584dp"
+            android:background="@drawable/rounded_green_constraint"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5">
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent">
 
             <Spinner
                 android:id="@+id/createObservation_BirdDropDown"
-                android:layout_width="278dp"
+                android:layout_width="350dp"
                 android:layout_height="59dp"
                 android:layout_marginStart="62dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="69dp"
                 android:layout_marginBottom="32dp"
-                app:layout_constraintBottom_toTopOf="@+id/createObservation_Qantity"
+                android:background="@drawable/rounded_edittext"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
-            <TextView
-                android:id="@+id/createObservation_Qantity"
-                android:layout_width="158dp"
-                android:layout_height="59dp"
-                android:layout_marginBottom="32dp"
-                android:gravity="center"
-                android:text="Quantity"
-                android:textSize="24dp"
-                app:layout_constraintBottom_toTopOf="@+id/createObservation_Description"
-                app:layout_constraintEnd_toStartOf="@+id/createObservation_minusQuantity"
-                app:layout_constraintHorizontal_bias="0.421"
-                app:layout_constraintStart_toEndOf="@+id/createObservation_addQuantity" />
-
-
-            <ImageView
-                android:id="@+id/createObservation_addQuantity"
-                android:layout_width="57dp"
-                android:layout_height="59dp"
-                android:layout_marginStart="52dp"
-                android:layout_marginBottom="32dp"
-                app:layout_constraintBottom_toTopOf="@+id/createObservation_Description"
-                app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/baseline_add_24" />
-
-            <ImageView
-                android:id="@+id/createObservation_minusQuantity"
-                android:layout_width="63dp"
-                android:layout_height="59dp"
-                android:layout_marginEnd="52dp"
-                android:layout_marginBottom="32dp"
-                app:layout_constraintBottom_toTopOf="@+id/createObservation_Description"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/baseline_horizontal_rule_24" />
-
             <EditText
                 android:id="@+id/createObservation_Description"
-                android:layout_width="300dp"
+                android:layout_width="350dp"
                 android:layout_height="59dp"
-                android:layout_marginStart="66dp"
-                android:layout_marginEnd="65dp"
+                android:layout_marginStart="55dp"
+                android:layout_marginEnd="54dp"
                 android:layout_marginBottom="32dp"
+                android:background="@drawable/rounded_edittext"
                 android:ems="10"
-                android:gravity="start|top"
+                android:gravity="center"
                 android:hint="write a brief description about the bird"
                 android:inputType="textMultiLine"
                 app:layout_constraintBottom_toTopOf="@+id/ButtonPicture"
@@ -89,9 +57,12 @@
                 android:id="@+id/createObservation_addSpecies"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
+                android:layout_marginStart="53dp"
+                android:layout_marginEnd="78dp"
                 android:layout_marginBottom="32dp"
                 android:text="add Species"
+                android:backgroundTint="#FFFFFF"
+                android:textColor="#000000"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayoutCompat"
                 app:layout_constraintEnd_toStartOf="@+id/createObservation_Record"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -100,8 +71,11 @@
                 android:id="@+id/createObservation_Record"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="53dp"
                 android:layout_marginBottom="32dp"
                 android:text="Record"
+                android:backgroundTint="#FFFFFF"
+                android:textColor="#000000"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayoutCompat"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/createObservation_addSpecies" />
@@ -111,6 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:background="@drawable/rounded_brown_constraint"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
@@ -119,7 +94,6 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:background="#4CAF50"
                     android:orientation="vertical"
                     tools:layout_editor_absoluteX="1dp"
                     tools:layout_editor_absoluteY="1dp">
@@ -132,7 +106,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="#4CAF50"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
@@ -141,13 +114,13 @@
                         android:id="@+id/imageView11"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        app:srcCompat="@drawable/baseline_person_24" />
+                        app:srcCompat="@drawable/baseline_menu_book_24" />
 
                     <TextView
                         android:id="@+id/textView12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Profile"
+                        android:text="nature \n diary"
                         android:textAlignment="center" />
                 </LinearLayout>
 
@@ -156,7 +129,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="#4CAF50"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
@@ -180,7 +152,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="#4CAF50"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
@@ -203,7 +174,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="#4CAF50"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
@@ -226,7 +196,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="#4CAF50"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
@@ -251,12 +220,64 @@
                 android:id="@+id/ButtonPicture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="155dp"
+                android:layout_marginEnd="156dp"
                 android:layout_marginBottom="32dp"
                 android:text="picture"
+                android:backgroundTint="#FFFFFF"
+                android:textColor="#000000"
                 app:layout_constraintBottom_toTopOf="@+id/createObservation_addSpecies"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="350dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="38dp"
+                android:background="@drawable/rounded_edittext"
+                android:layout_marginBottom="28dp"
+                app:layout_constraintBottom_toTopOf="@+id/createObservation_Description"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/createObservation_BirdDropDown">
+
+                <ImageView
+                    android:id="@+id/createObservation_addQuantity"
+                    android:layout_width="57dp"
+                    android:layout_height="59dp"
+
+                    android:background="@drawable/rounded_edittext"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.483"
+                    app:srcCompat="@drawable/baseline_add_24" />
+
+                <TextView
+                    android:id="@+id/createObservation_Qantity"
+                    android:layout_width="158dp"
+                    android:layout_height="59dp"
+
+                    android:layout_marginTop="1dp"
+                    android:gravity="center"
+                    android:text="Quantity"
+                    android:textSize="24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/createObservation_minusQuantity"
+                    app:layout_constraintStart_toEndOf="@+id/createObservation_addQuantity"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/createObservation_minusQuantity"
+                    android:layout_width="63dp"
+                    android:layout_height="59dp"
+                    android:background="@drawable/rounded_edittext"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/baseline_horizontal_rule_24" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -264,13 +285,15 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
+            android:layout_marginStart="63dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="63dp"
             android:text="create observation"
             android:textSize="34sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/textView5"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView5"
@@ -282,5 +305,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

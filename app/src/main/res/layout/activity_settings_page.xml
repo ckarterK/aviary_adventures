@@ -2,16 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".settingsPage">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="409dp"
-        android:layout_height="912dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -19,62 +19,63 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="161dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="162dp"
+            android:layout_marginTop="32dp"
             android:text="settings"
             android:textSize="24dp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="107dp"
-            android:layout_height="99dp"
-            android:layout_marginStart="152dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="150dp"
+            android:id="@+id/yourImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/rounded_imageview"
+            android:padding="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/baseline_person_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6"
-            app:srcCompat="@drawable/baseline_person_24" />
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
 
         <TextView
             android:id="@+id/settings_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="117dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="117dp"
+            android:layout_marginTop="16dp"
             android:text="akim mangwane"
             android:textSize="24dp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:layout_constraintTop_toBottomOf="@+id/yourImageView" />
 
         <TextView
             android:id="@+id/settings_Email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="112dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="111dp"
+            android:layout_marginTop="16dp"
             android:text="akim@gmail.com"
             android:textSize="24dp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/settings_name" />
-
 
         <Button
             android:id="@+id/settings_EditProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="52dp"
+            android:layout_marginStart="43dp"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="#000000"
             android:text="edit profile"
+            android:textColor="#FFFFFF"
             app:layout_constraintEnd_toStartOf="@+id/settings_DeleteProfile"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/settings_Email" />
@@ -84,8 +85,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="54dp"
+            android:layout_marginEnd="45dp"
+            android:backgroundTint="#000000"
             android:text="delete Profile"
+            android:textColor="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/settings_EditProfile"
             app:layout_constraintTop_toBottomOf="@+id/settings_Email" />
@@ -107,6 +110,8 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
                 android:text="Metrics"
+                android:textSize="24dp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -114,11 +119,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout7"
-            android:layout_width="330dp"
+            android:layout_width="350dp"
             android:layout_height="51dp"
-            android:layout_marginStart="40dp"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="39dp"
             android:background="@color/material_dynamic_neutral60"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -128,10 +131,10 @@
                 android:id="@+id/settings_kilometersBtn"
                 android:layout_width="170dp"
                 android:layout_height="51dp"
-                android:layout_marginStart="6dp"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="@color/material_dynamic_neutral60"
                 android:text="kilometers"
                 android:textColor="@color/black"
-                android:backgroundTint="@color/material_dynamic_neutral60"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -140,6 +143,7 @@
                 android:id="@+id/settings_milesBtn"
                 android:layout_width="144dp"
                 android:layout_height="match_parent"
+                android:layout_marginEnd="8dp"
                 android:backgroundTint="@color/material_dynamic_neutral60"
                 android:text="miles"
                 android:textColor="@color/black"
@@ -153,13 +157,11 @@
             android:id="@+id/linearLayoutCompat3"
             android:layout_width="match_parent"
             android:layout_height="83dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="41dp"
+            android:background="@drawable/rounded_brown_constraint"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout10">
+            app:layout_constraintStart_toStartOf="parent">
 
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -177,7 +179,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#4CAF50"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -186,13 +187,13 @@
                     android:id="@+id/imageView11"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    app:srcCompat="@drawable/baseline_person_24" />
+                    app:srcCompat="@drawable/baseline_menu_book_24" />
 
                 <TextView
                     android:id="@+id/textView12"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Profile"
+                    android:text="nature \n diary"
                     android:textAlignment="center" />
             </LinearLayout>
 
@@ -201,7 +202,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#4CAF50"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -225,7 +225,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#4CAF50"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -248,7 +247,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#4CAF50"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -271,7 +269,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#4CAF50"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -296,10 +293,12 @@
             android:id="@+id/constraintLayout10"
             android:layout_width="330dp"
             android:layout_height="51dp"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="42dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="39dp"
+            android:layout_marginBottom="32dp"
             android:background="@color/material_dynamic_neutral60"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayoutCompat3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
@@ -315,39 +314,44 @@
 
                 <Button
                     android:id="@+id/Radius5_Settings"
-                    android:backgroundTint="@color/material_dynamic_neutral60"
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:layout_weight="1"
-                    android:text="5" />
+                    android:backgroundTint="@color/material_dynamic_neutral60"
+                    android:text="5"
+                    android:textColor="@color/black" />
 
                 <Button
                     android:id="@+id/Radius10_Settings"
-                    android:backgroundTint="@color/material_dynamic_neutral60"
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:layout_weight="1"
-                    android:text="10" />
+                    android:backgroundTint="@color/material_dynamic_neutral60"
+                    android:text="10"
+                    android:textColor="@color/black" />
 
                 <Button
                     android:id="@+id/Radius15_Settings"
-                    android:backgroundTint="@color/material_dynamic_neutral60"
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
                     android:layout_weight="1"
-                    android:text="15" />
+                    android:backgroundTint="@color/material_dynamic_neutral60"
+                    android:text="15"
+                    android:textColor="@color/black" />
 
                 <Button
                     android:id="@+id/Radius30_Settings"
-                    android:backgroundTint="@color/material_dynamic_neutral60"
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
                     android:layout_weight="1"
-                    android:text="30" />
+                    android:backgroundTint="@color/material_dynamic_neutral60"
+                    android:text="30"
+                    android:textColor="@color/black" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -368,6 +372,8 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
                 android:text="Radius"
+                android:textSize="24dp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

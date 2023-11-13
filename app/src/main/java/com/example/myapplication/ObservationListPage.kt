@@ -29,7 +29,7 @@ class ObservationListPage : AppCompatActivity() {
         setContentView(R.layout.activity_observation_list_page)
 
 
-        setupNavigator(R.id.profile_ObservationList,settingsPage::class.java)
+        setupNavigator(R.id.profile_ObservationList,diaryNotesList::class.java)
         setupNavigator(R.id.settings_ObservationList,settingsPage::class.java)
         setupNavigator(R.id.map_ObservationList,MapsActivity::class.java)
         setupNavigator(R.id.recrdobservation_ObservationList,createObservation::class.java)

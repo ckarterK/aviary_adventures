@@ -2,8 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="412dp"
-    android:layout_height="915dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="#DBFFFFFF"
     tools:context=".welcomePage">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,7 +14,7 @@
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"
-        android:background="@color/white"
+        android:background="#70A94E"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -25,48 +26,56 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="110dp"
-            android:layout_marginTop="85dp"
-            android:layout_marginEnd="111dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
             android:text="aviary adventures"
             android:textSize="24dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/yourImageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="142dp"
-            android:layout_marginTop="51dp"
-            android:layout_marginEnd="139dp"
+            android:id="@+id/yourImageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="8dp"
+            android:layout_marginStart="129dp"
+            android:layout_marginEnd="251dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/rounded_imageview"
+            android:padding="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/real_logo"
+            app:layout_constraintBottom_toTopOf="@+id/textView2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout12"
             android:layout_width="414dp"
             android:layout_height="396dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="78dp"
-            android:background="@color/white"
+            android:background="@drawable/rounded_brown_constraint"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2">
+            app:layout_constraintStart_toStartOf="parent">
 
             <Button
                 android:id="@+id/WelcomePage_LoginButton"
                 android:layout_width="242dp"
                 android:layout_height="58dp"
-                android:layout_marginStart="83dp"
-                android:layout_marginTop="184dp"
-                android:layout_marginEnd="85dp"
+                android:layout_marginStart="86dp"
+                android:layout_marginTop="102dp"
+                android:layout_marginEnd="86dp"
+                android:layout_marginBottom="108dp"
+                android:backgroundTint="#FFFFFF"
                 android:text="Login"
+                android:textColor="#000000"
                 android:textSize="24dp"
+                app:layout_constraintBottom_toTopOf="@+id/WelcomePage_RegisterButton"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -74,14 +83,16 @@
                 android:id="@+id/WelcomePage_RegisterButton"
                 android:layout_width="242dp"
                 android:layout_height="58dp"
-                android:layout_marginBottom="67dp"
+                android:layout_marginStart="86dp"
+                android:layout_marginEnd="86dp"
+                android:layout_marginBottom="70dp"
+                android:backgroundTint="#FFFFFF"
                 android:text="Register"
+                android:textColor="#000000"
                 android:textSize="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/WelcomePage_LoginButton"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -89,12 +100,14 @@
             android:id="@+id/textView2"
             android:layout_width="363dp"
             android:layout_height="57dp"
-            android:layout_marginTop="84dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="21dp"
+            android:layout_marginBottom="32dp"
             android:text="Aviary Adventurer: Discover, Explore, Soar"
             android:textSize="24dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout12"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.543"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

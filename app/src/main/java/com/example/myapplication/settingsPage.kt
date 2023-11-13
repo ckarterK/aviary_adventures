@@ -39,7 +39,7 @@ class settingsPage : AppCompatActivity() {
         setupRadiusBtn(R.id.Radius30_Settings,User.Radius.RADIUS_30)
 
 
-        setupNavigator(R.id.profile_Settings,settingsPage::class.java)
+        setupNavigator(R.id.profile_Settings,diaryNotesList::class.java)
         setupNavigator(R.id.settings_Settings,settingsPage::class.java)
         setupNavigator(R.id.map_Settings,MapsActivity::class.java)
         setupNavigator(R.id.recordObservation_Settings,createObservation::class.java)

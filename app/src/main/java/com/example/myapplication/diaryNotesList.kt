@@ -22,16 +22,16 @@ class diaryNotesList : AppCompatActivity() {
 
     private lateinit var newRecyclerView: RecyclerView
     private var newDiaryNotes =ArrayList<DiaryNotesList>()
-    private var diaryNotesList = ArrayList<diaryNotes>()
+    private var diaryNoteList = ArrayList<diaryNotes>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diary_notes_list)
 
-        setupNavigator(R.id.profile_ObservationList,settingsPage::class.java)
-        setupNavigator(R.id.settings_ObservationList,settingsPage::class.java)
-        setupNavigator(R.id.map_ObservationList,MapsActivity::class.java)
-        setupNavigator(R.id.recrdobservation_ObservationList,createObservation::class.java)
-        setupNavigator(R.id.observationList_ObservationList,ObservationListPage::class.java)
+        setupNavigator(R.id.profile_diaryNotesList, diaryNotesList::class.java)
+        setupNavigator(R.id.settings_diaryNotesList ,settingsPage::class.java)
+        setupNavigator(R.id.map_diaryNotesList,MapsActivity::class.java)
+        setupNavigator(R.id.recrdobservation_diaryNotesList,createObservation::class.java)
+        setupNavigator(R.id.observationList_diaryNotesList,ObservationListPage::class.java)
 
         newRecyclerView= findViewById(R.id.diaryNotes_RecyclerView)
         newRecyclerView.layoutManager= LinearLayoutManager(this)
@@ -59,7 +59,7 @@ class diaryNotesList : AppCompatActivity() {
 
                    var diaryNotes=diaryNotes(diarySubject,diaryLocation,formattedDate,diaryDescription)
 
-                    diaryNotesList.add(diaryNotes)
+                    diaryNoteList.add(diaryNotes)
 
                 }
                 getUserData()
@@ -79,7 +79,7 @@ class diaryNotesList : AppCompatActivity() {
         }
     }
     private fun getUserData(){
-        for(item in diaryNotesList){
+        for(item in diaryNoteList){
             val diaryNote= DiaryNotesList(
                 "Date:${item.getdate()}",
                 "Subject:${item.getSubject()}",

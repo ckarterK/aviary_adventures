@@ -76,7 +76,7 @@ class createObservation : AppCompatActivity() {
         val takePictureButton = findViewById<Button>(R.id.ButtonPicture)
 
 
-        setupNavigator(R.id.profile_CreateObservation,settingsPage::class.java)
+        setupNavigator(R.id.profile_CreateObservation,diaryNotesList::class.java)
         setupNavigator(R.id.settings_CreateObservation ,settingsPage::class.java)
         setupNavigator(R.id.map_CreateObservation,MapsActivity::class.java)
         setupNavigator(R.id.recrdobservation_CreateObservation,createObservation::class.java)

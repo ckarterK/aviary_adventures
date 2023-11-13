@@ -19,15 +19,15 @@
         <activity
             android:name=".diaryNotesList"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light"/>
+            android:theme="@style/Theme.Design.NoActionBar"/>
         <activity
             android:name=".DiaryNotes"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light"/>
+            />
         <activity
             android:name=".welcomePage"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light">
+           >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,27 +37,27 @@
         <activity
             android:name=".ObservationListPage"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light" />
+            />
         <activity
             android:name=".createObservation"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light" />
+           />
         <activity
             android:name=".updateProfilePage"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light" />
+            />
         <activity
             android:name=".settingsPage"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light" />
+            />
         <activity
             android:name=".RegisterPage"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light" />
+             />
         <activity
             android:name=".LoginPage"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light" />
+           />
         <!--
              To get one, follow the directions here:
 
@@ -75,7 +75,7 @@
             android:name=".MapsActivity"
             android:exported="true"
             android:label="@string/title_activity_maps"
-            android:theme="@style/Theme.AppCompat.Light" />
+           />
         <activity
             android:name=".MainActivity"
             android:exported="true"

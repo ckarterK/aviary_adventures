@@ -68,8 +68,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupNavigator(R.id.profile_Maps,settingsPage::class.java)
-        setupNavigator(R.id.settings_Maps,diaryNotesList::class.java)
+        setupNavigator(R.id.profile_Maps,diaryNotesList::class.java)
+        setupNavigator(R.id.settings_Maps,settingsPage::class.java)
         setupNavigator(R.id.map_Maps,MapsActivity::class.java)
         setupNavigator(R.id.recrdobservation_Maps,createObservation::class.java)
         setupNavigator(R.id.observationList_Maps,ObservationListPage::class.java)

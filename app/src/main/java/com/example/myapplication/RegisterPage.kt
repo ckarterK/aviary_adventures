@@ -19,10 +19,14 @@ class RegisterPage : AppCompatActivity() {
         setContentView(R.layout.activity_register_page)
 
         var registerButton = findViewById<Button>(R.id.RegisterPage_RegisterButton)
+        var loginButton=findViewById<Button>(R.id.RegisterPage_LoginButton)
         val auth=FirebaseAuth.getInstance()
         val database = FirebaseDatabase.getInstance()
 
-
+        loginButton.setOnClickListener {
+            val intent = Intent(this, LoginPage::class.java)
+            startActivity(intent)
+        }
 
         registerButton.setOnClickListener {
             val fullName = findViewById<EditText>(R.id.RegisterPage_fullName).text.toString()
