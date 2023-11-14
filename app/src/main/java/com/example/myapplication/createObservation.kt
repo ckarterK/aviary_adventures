@@ -197,7 +197,7 @@ try {
                     .addOnCompleteListener { dbTask ->
                         if (dbTask.isSuccessful) {
                             Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this, ObservationListPage::class.java)
+                            val intent = Intent(this, createObservation::class.java)
                             startActivity(intent)
                         }
                         else

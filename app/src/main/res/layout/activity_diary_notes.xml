@@ -30,7 +30,7 @@
                 android:layout_marginTop="32dp"
                 android:background="@drawable/rounded_edittext"
                 android:ems="10"
-                android:hint="description"
+                android:hint="Make a personal bird-watching journal that you can look back on by writing down your experience"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
                 app:layout_constraintEnd_toEndOf="parent"

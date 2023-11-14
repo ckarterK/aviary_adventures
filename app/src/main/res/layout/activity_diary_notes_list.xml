@@ -175,7 +175,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="nature \n diary"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#000000" />
             </LinearLayout>
 
             <LinearLayout
@@ -197,7 +198,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="settings"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#000000" />
 
             </LinearLayout>
 
@@ -220,7 +222,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="map"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#000000" />
             </LinearLayout>
 
             <LinearLayout
@@ -242,7 +245,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="record\nobservation"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#000000" />
             </LinearLayout>
 
             <LinearLayout
@@ -264,7 +268,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="observation\nlist"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="#000000" />
             </LinearLayout>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -273,7 +278,9 @@
             android:id="@+id/addDiaryNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="#FFFFFF"
             android:text="add diary notes"
+            android:textColor="#000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
