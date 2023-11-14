@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="390dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:background="#FFFFFF"
+        android:background="@drawable/rounded_recycler_items"
+        android:foregroundGravity="clip_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,57 +22,70 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
+            android:gravity="center_horizontal"
             android:text="TextView"
+            android:textColor="@color/black"
             android:textSize="34sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/subject"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="TextView"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/date" />
 
-        <TextView
-            android:id="@+id/location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="165dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="167dp"
-            android:text="TextView"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/subject" />
-
-        <Button
-            android:id="@+id/detailButon"
+        <ImageView
+            android:id="@+id/picture"
             android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="2dp"
-            android:text="Detials"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/location" />
+            android:layout_height="150dp"
+            android:layout_marginTop="32dp"
+            android:textColor="@color/black"
 
-        <Button
-            android:id="@+id/distanceBtn"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="41dp"
-            android:layout_marginEnd="24dp"
-            android:text="Distance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/date"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/observerdSpecies"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="42dp"
+            android:gravity="center_horizontal"
+            android:text="TextView"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/picture" />
+
+        <TextView
+            android:id="@+id/observeredBirds"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="32dp"
+            android:gravity="center_horizontal"
+            android:text="TextView"
+            android:textColor="@color/black"
+
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/observerdSpecies" />
+
+        <TextView
+            android:id="@+id/observationLocation"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center_horizontal"
+            android:text="TextView"
+            android:textColor="@color/black"
+
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/location" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/observeredBirds" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

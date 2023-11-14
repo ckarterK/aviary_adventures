@@ -28,6 +28,10 @@ class DiaryNotes : AppCompatActivity() {
         var add_button=findViewById<Button>(R.id.add_diaryNotes)
         var cancel_button=findViewById<Button>(R.id.cancel_diaryNotes)
 
+        cancel_button.setOnClickListener {
+            val intent = Intent(this, diaryNotesList::class.java)
+            startActivity(intent)
+        }
         add_button.setOnClickListener {
             var subject= findViewById<EditText>(R.id.subject_diaryNotes).text.toString()
             var location= findViewById<EditText>(R.id.location_diaryNotes).text.toString()
@@ -68,9 +72,7 @@ class DiaryNotes : AppCompatActivity() {
                 Toast.makeText(this, "take a picture", Toast.LENGTH_SHORT).show()
             }
         }
-        cancel_button.setOnClickListener {
 
-        }
     }
 
 

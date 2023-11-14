@@ -21,6 +21,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapplication.Models.Observation
 import com.example.myapplication.Models.User
 import com.example.myapplication.Models.diaryNotes
 
@@ -39,6 +41,10 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.maps.model.PolylineOptions
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.maps.DirectionsApiRequest
 import com.google.maps.GeoApiContext
 import com.google.maps.PendingResult
@@ -49,9 +55,12 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickListener{
 
+    private var observationsList = ArrayList<Observation>()
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -202,12 +211,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
                         location.latitude = hotspot.lat
                         location.longitude = hotspot.lng
 
-                        // Calculate the distance between the hotspot and the reference location
-                        val distance = referenceLocation.distanceTo(location)
-                        val range = radius * 1000
+                        val metersToMilesConversionFactor = 0.000621371
+                        val distanceInMiles = referenceLocation.distanceTo(location) * metersToMilesConversionFactor
 
-                        // Check if the distance is within the specified range
-                        if (distance <= range) {
+                        val rangeInMiles = radius.toDouble() // Assuming radius is in miles
+                        if (distanceInMiles <= rangeInMiles){
                             val hotspotLatLng = LatLng(hotspot.lat, hotspot.lng)
                             markerOptionsList.add(MarkerOptions().position(hotspotLatLng).title("Bird Observation"))
                         }
@@ -218,15 +226,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
                     for (markerOptions in markerOptionsList) {
                         mMap.addMarker(markerOptions)
                     }
-
+                    userobservations()
                     // Adjust the camera to show all markers within the specified range
                     if (!markerOptionsList.isEmpty()) {
                         val builder = LatLngBounds.builder()
+                        val userLatLng = LatLng(userLocation.lat,userLocation.lng)
+                        builder.include(userLatLng)
                         for (markerOptions in markerOptionsList) {
                             builder.include(markerOptions.position)
                         }
                         val bounds = builder.build()
-                        val cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, 50)
+                        val cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, 250)
                         mMap.moveCamera(cameraUpdate)
                     }
                 }
@@ -263,8 +273,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
                 for (hotspots in HotspotList) {
                     val location = LatLng(hotspots.lat, hotspots.lng)
                     mMap.addMarker(MarkerOptions().position(location).title("Bird Observation"))
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(location))
+
                 }
+                userobservations()
+
 
 
 
@@ -292,7 +304,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
 
                     // Zoom into the user's location here
                     val userLatLng = LatLng(it.latitude, it.longitude)
-                    val cameraUpdate = CameraUpdateFactory.newLatLngZoom(userLatLng, 25f) // You can adjust the zoom level as needed (15f in this case)
+                    val cameraUpdate = CameraUpdateFactory.newLatLngZoom(userLatLng, 50f) // You can adjust the zoom level as needed (15f in this case)
                     mMap.moveCamera(cameraUpdate)
 
                 }
@@ -431,6 +443,49 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
             val intent = Intent(this, page)
             startActivity(intent)
         }
+    }
+    private fun userobservations() {
+
+        val databaseRef = FirebaseDatabase.getInstance().reference
+        val uid = User.staticUser?.getUid().toString()
+        val categoryPath = "Users/$uid/observed List"
+
+        databaseRef.child(categoryPath).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    observationsList.clear() // Clear the list before populating it again
+                    for (childSnapshot in dataSnapshot.children) {
+                        // Loop through the child nodes (each represents an observation)
+                        val birdSpecies = childSnapshot.child("birdSpecies").value.toString()
+                        val description = childSnapshot.child("description").value.toString()
+                        val quantity = childSnapshot.child("quantity").getValue(Int::class.java)
+                        val pictureID = childSnapshot.child("pictureID").value.toString()
+                        var date = childSnapshot.child("date").value.toString()
+                        var lat= childSnapshot.child("latitude").value.toString().toDouble()
+                        var long=childSnapshot.child("longitude").value.toString().toDouble()
+                        var location= LatLng(lat,long)
+                        val dateFormat =
+                            SimpleDateFormat("yyyy-MM-dd") // Define your desired date format
+
+                        val Date: Date = dateFormat.parse(date)
+
+                        val formattedDate: String = dateFormat.format(Date)
+
+                        mMap.addMarker(MarkerOptions().position(location).snippet("Bird Observation\ndate:${date}"))
+
+                    }
+
+                } else {
+
+                }
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle any errors that occur while retrieving data
+                // For example, you can log an error message
+            }
+
+
+        })
     }
 }
 

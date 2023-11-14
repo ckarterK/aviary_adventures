@@ -13,7 +13,7 @@ class noDiaryNotesAdapter(private val nodiaryNotesList:ArrayList<noDiaryNotesLis
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView=
-            LayoutInflater.from(parent.context).inflate(R.layout.list_diarynotes,parent,false)
+            LayoutInflater.from(parent.context).inflate(R.layout.no_diarynotes,parent,false)
         return MyViewHolder(itemView)
     }
 

@@ -34,7 +34,7 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <Button
-                    android:id="@+id/filterBy_obervationListPage"
+                    android:id="@+id/filterBy_DiaryNotes"
                     android:layout_width="113dp"
                     android:layout_height="49dp"
                     android:layout_marginStart="4dp"
@@ -58,7 +58,7 @@
                     android:inputType="date"
                     android:textColor="#000000"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/filterBy_obervationListPage"
+                    app:layout_constraintStart_toEndOf="@+id/filterBy_DiaryNotes"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="1.0" />
 
