@@ -22,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.util.Date
-
+import java.util.Locale
 
 
 class ObservationListPage : AppCompatActivity() {
@@ -41,24 +41,28 @@ class ObservationListPage : AppCompatActivity() {
         var filterBtn= findViewById<Button>(R.id.filterBy_DiaryNotes)
 
         filterBtn.setOnClickListener {
-            var startDate=findViewById<EditText>(R.id.startdate).text.toString()
-            var endDate=findViewById<EditText>(R.id.endDate).text.toString()
+            val startDateEditText = findViewById<EditText>(R.id.startdate)
+            val endDateEditText = findViewById<EditText>(R.id.endDate)
 
-            if(!startDate.isEmpty() && !endDate.isEmpty()){
+            val startDate = startDateEditText.text.toString()
+            val endDate = endDateEditText.text.toString()
 
-                populateRecyclerView(startDate, endDate)
-
-            }else if(startDate.isEmpty()){
-
-                findViewById<EditText>(R.id.startdate).error="select a date"
-
-            }else if(endDate.isEmpty()){
-
-                findViewById<EditText>(R.id.endDate).error="select a date"
-            }else{
-
+            if (!startDate.isEmpty() && !endDate.isEmpty()) {
+                // Check if both start and end dates are valid
+                if (isValidDate(startDate) && isValidDate(endDate)) {
+                    populateRecyclerView(startDate, endDate)
+                } else {
+                    // Notify the user that the dates are not in the correct format
+                    startDateEditText.error = "Invalid date format yyyy-mm-dd"
+                    endDateEditText.error = "Invalid date format yyyy-mm-dd"
+                }
+            } else if (startDate.isEmpty()) {
+                startDateEditText.error = "Select a date"
+            } else if (endDate.isEmpty()) {
+                endDateEditText.error = "Select a date"
+            } else {
+                // Handle other cases if needed
             }
-
         }
 
         setupNavigator(R.id.profile_ObservationList,diaryNotesList::class.java)
@@ -67,6 +71,19 @@ class ObservationListPage : AppCompatActivity() {
         setupNavigator(R.id.recrdobservation_ObservationList,createObservation::class.java)
         setupNavigator(R.id.observationList_ObservationList,ObservationListPage::class.java)
         populateRecyclerView()
+    }
+    fun isValidDate(dateStr: String, format: String = "yyyy-MM-dd"): Boolean {
+        val sdf = SimpleDateFormat(format, Locale.getDefault())
+        sdf.isLenient = false
+
+        return try {
+            // Try to parse the date string
+            sdf.parse(dateStr)
+            true
+        } catch (e: Exception) {
+            // If an exception occurs, the date is not in the correct format
+            false
+        }
     }
     private fun populateRecyclerView(startDate:String,endDate:String){
 

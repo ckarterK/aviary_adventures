@@ -120,7 +120,11 @@ class settingsPage : AppCompatActivity() {
                         chosenButtonColor(R.id.settings_milesBtn)
                         notChosenButtonColor(R.id.settings_kilometersBtn)
                     }
-
+                    Toast.makeText(
+                        this@settingsPage,
+                        "metrics has been changed",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
                     // Error saving data to the database
                     val dbException = dbTask.exception
@@ -158,6 +162,11 @@ class settingsPage : AppCompatActivity() {
                         notChosenButtonColor(R.id.Radius5_Settings,R.id.Radius10_Settings,R.id.Radius15_Settings)
                     }
 
+                    Toast.makeText(
+                        this@settingsPage,
+                        "radius has been changed",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
                     // Error saving data to the database
                     val dbException = dbTask.exception

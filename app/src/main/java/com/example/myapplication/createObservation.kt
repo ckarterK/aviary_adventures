@@ -146,7 +146,7 @@ try {
                 databaseReference.setValue(observation.toMap())
                     .addOnCompleteListener { dbTask ->
                         if (dbTask.isSuccessful) {
-                            Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "observation recorded", Toast.LENGTH_SHORT).show()
                             counter=0
                             birdDescriptionET.setText("")
                             quantityET.setText("Quantity")

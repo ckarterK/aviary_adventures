@@ -53,7 +53,7 @@ class DiaryNotes : AppCompatActivity() {
                     databaseReference.setValue(diaryNotes.creatediaryNotes())
                         .addOnCompleteListener { dbTask ->
                             if (dbTask.isSuccessful) {
-                                Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this, "diary note added", Toast.LENGTH_SHORT).show()
                                 val intent = Intent(this, diaryNotesList::class.java)
                                 startActivity(intent)
                             }
