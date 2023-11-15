@@ -388,7 +388,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
-                android:text="(select a radius for youbird observation)"
+                android:text="(select a radius for you bird observation)"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold"

@@ -37,6 +37,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener
 import com.google.android.gms.maps.GoogleMap.OnPolylineClickListener
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.Polyline
@@ -152,21 +153,24 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
         mMap = googleMap
         mMap.setOnPolylineClickListener(this)
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            // Enable the My Location layer
-            mMap.isMyLocationEnabled = true
+        var permissionGranted=false
 
-            // Show the user's location
-            showUserLocation()
+        while(!permissionGranted) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                mMap.isMyLocationEnabled = true
+                permissionGranted=true
+                // Show the user's location
+                showUserLocation()
 
 
-        } else {
-            // Request location permission from the user
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1)
+            } else {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1)
+                permissionGranted=false
+            }
         }
-
         mMap.setOnMarkerClickListener { marker ->
 
+            marker.showInfoWindow()
             mSelectedMarker=marker
             calculateDirections(marker)
             true // Return true to consume the event
@@ -211,16 +215,32 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
                         location.latitude = hotspot.lat
                         location.longitude = hotspot.lng
 
-                        val metersToMilesConversionFactor = 0.000621371
-                        val distanceInMiles = referenceLocation.distanceTo(location) * metersToMilesConversionFactor
+                        if (User.staticUser.getpreferedMeasurement() == User.Measurement.KILOMETERS) {
 
-                        val rangeInMiles = radius.toDouble() // Assuming radius is in miles
-                        if (distanceInMiles <= rangeInMiles){
-                            val hotspotLatLng = LatLng(hotspot.lat, hotspot.lng)
-                            markerOptionsList.add(MarkerOptions().position(hotspotLatLng).title("Bird Observation"))
+                            val distanceInKilometers = referenceLocation.distanceTo(location) / 1000
+
+                            if (distanceInKilometers <= radius) {
+                                val hotspotLatLng = LatLng(hotspot.lat, hotspot.lng)
+                                markerOptionsList.add(
+                                    MarkerOptions().position(hotspotLatLng)
+                                        .title("Bird Observation")
+                                )
+                            }
+                        } else {
+                            val metersToMilesConversionFactor = 0.000621371
+                            val distanceInMiles =
+                                referenceLocation.distanceTo(location) * metersToMilesConversionFactor
+
+                            val rangeInMiles = radius.toDouble() // Assuming radius is in miles
+                            if (distanceInMiles <= rangeInMiles) {
+                                val hotspotLatLng = LatLng(hotspot.lat, hotspot.lng)
+                                markerOptionsList.add(
+                                    MarkerOptions().position(hotspotLatLng)
+                                        .title("Bird Observation")
+                                )
+                            }
                         }
                     }
-
                     // Add all markers to the map
                     mMap.clear()
                     for (markerOptions in markerOptionsList) {
@@ -276,10 +296,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
 
                 }
                 userobservations()
-
-
-
-
             }
 
             override fun onFailure(call: Call<List<HotspotsItem>?>, t: Throwable) {
@@ -406,24 +422,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
                     // Convert the distance from meters to kilometers
                     val distanceInMeters = polylineData.getLeg().distance.inMeters
                     val distanceInKilometers = distanceInMeters / 1000.0
-                    val marker: Marker? = mMap.addMarker(
-                        MarkerOptions()
-                            .position(endlocation)
-                            .title("Trip: $index")
-                            .snippet("Duration: ${polylineData.getLeg().duration}, Distance: ${distanceInKilometers} km")
-                    )
-                    marker?.showInfoWindow()
-                    mSelectedMarker?.isVisible = false
+                    mSelectedMarker!!.title="Trip: $index"
+                    mSelectedMarker!!.snippet="Duration: ${polylineData.getLeg().duration}, Distance: ${distanceInKilometers} km"
+                    mSelectedMarker?.showInfoWindow()
 
                 }else{
-                    val marker: Marker? = mMap.addMarker(
-                        MarkerOptions()
-                            .position(endlocation)
-                            .title("Trip:$index")
-                            .snippet("Duration: ${polylineData.getLeg().duration} ${polylineData.getLeg().distance}")
-                    )
-                    marker?.showInfoWindow()
-                    mSelectedMarker?.isVisible=false
+                    mSelectedMarker!!.title="Trip:$index"
+                    mSelectedMarker!!.snippet="Duration: ${polylineData.getLeg().duration} ${polylineData.getLeg().distance}"
+                    mSelectedMarker?.showInfoWindow()
+
 
                 }
 
@@ -455,24 +462,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
                 if (dataSnapshot.exists()) {
                     observationsList.clear() // Clear the list before populating it again
                     for (childSnapshot in dataSnapshot.children) {
-                        // Loop through the child nodes (each represents an observation)
                         val birdSpecies = childSnapshot.child("birdSpecies").value.toString()
-                        val description = childSnapshot.child("description").value.toString()
-                        val quantity = childSnapshot.child("quantity").getValue(Int::class.java)
-                        val pictureID = childSnapshot.child("pictureID").value.toString()
                         var date = childSnapshot.child("date").value.toString()
                         var lat= childSnapshot.child("latitude").value.toString().toDouble()
                         var long=childSnapshot.child("longitude").value.toString().toDouble()
                         var location= LatLng(lat,long)
-                        val dateFormat =
-                            SimpleDateFormat("yyyy-MM-dd") // Define your desired date format
+                        val dateFormat = SimpleDateFormat("yyyy-MM-dd") // Define your desired date format
+                        val markerColor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE) // Set the initial color
 
                         val Date: Date = dateFormat.parse(date)
-
-                        val formattedDate: String = dateFormat.format(Date)
-
-                        mMap.addMarker(MarkerOptions().position(location).snippet("Bird Observation\ndate:${date}"))
-
+                        mMap.addMarker(MarkerOptions().position(location)
+                            .title("your Bird Observation")
+                            .snippet("Date:${date}\n" +
+                                     "Bird species:${birdSpecies}").icon(markerColor))
                     }
 
                 } else {
