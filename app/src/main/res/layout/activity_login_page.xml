@@ -109,7 +109,7 @@
             app:layout_constraintTop_toBottomOf="@+id/yourImageView" />
 
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/yourImageView"
             android:layout_width="150dp"
             android:layout_height="150dp"
@@ -119,7 +119,7 @@
             android:background="@drawable/rounded_imageview"
             android:padding="8dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/baseline_person_24"
+            android:src="@drawable/real_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
