@@ -79,7 +79,7 @@
 
                     <Spinner
                         android:id="@+id/RadiuSpinner_Maps"
-                        android:layout_width="244dp"
+                        android:layout_width="243dp"
                         android:layout_height="32dp"
                         android:layout_marginStart="44dp"
                         android:layout_marginEnd="8dp"
