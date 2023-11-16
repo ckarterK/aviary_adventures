@@ -5,6 +5,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.location.Geocoder
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -58,9 +59,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickListener{
 
+    private var alreadyZoomed: Boolean=true
     private var observationsList = ArrayList<Observation>()
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
@@ -69,7 +72,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
     private var mPolyLinesData: ArrayList<PolyLineData> = ArrayList()
     private var mSelectedMarker: Marker? =null
     private lateinit var endlocation: LatLng
-
+    private lateinit var locationUpdateHandler: Handler
+    private val locationUpdateInterval = 5000L
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,6 +81,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
         setupNavigator(R.id.profile_Maps,diaryNotesList::class.java)
         setupNavigator(R.id.settings_Maps,settingsPage::class.java)
@@ -143,6 +148,28 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
 
 
     }
+    private fun scheduleLocationUpdate() {
+        locationUpdateHandler = Handler(Looper.getMainLooper())
+        locationUpdateHandler.postDelayed({
+            // Update the user's location
+            showUserLocation()
+
+            // Schedule the next location update
+            scheduleLocationUpdate()
+        }, locationUpdateInterval)
+    }
+
+    private fun stopLocationUpdates() {
+        locationUpdateHandler.removeCallbacksAndMessages(null)
+    }
+
+    // ... (existing code)
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Stop location updates when the activity is destroyed
+        stopLocationUpdates()
+    }
 
     /**
      * Manipulates the map once available.
@@ -160,8 +187,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
                 mMap.isMyLocationEnabled = true
                 permissionGranted=true
                 // Show the user's location
-                showUserLocation()
-
+                scheduleLocationUpdate()
 
             } else {
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1)
@@ -200,7 +226,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
                 .build()
                 .create(EBirdApiService::class.java)
 
-            val retrofitData = retrofit.getRecentHotspots("US")
+            var latlng=LatLng(User.staticUser.getLocation().lat,User.staticUser.getLocation().lng)
+            var countryCode=getCountryCode(latlng.latitude,latlng.longitude)
+            val retrofitData = retrofit.getRecentHotspots("${countryCode}")
+            Log.d("countrycode"," apppl: ${countryCode}")
             retrofitData.enqueue(object : Callback<List<HotspotsItem>?> {
                 override fun onResponse(
                     call: Call<List<HotspotsItem>?>,
@@ -282,7 +311,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
             .build()
             .create(EBirdApiService::class.java)
 
-        val retrofitData = retrofit.getRecentHotspots("US")
+    var latlng=LatLng(User.staticUser.getLocation().lat,User.staticUser.getLocation().lng)
+    var countryCode=getCountryCode(latlng.latitude,latlng.longitude)
+        val retrofitData = retrofit.getRecentHotspots("${countryCode}")
+        Log.d("countrycode"," apppl: ${countryCode}")
         retrofitData.enqueue(object : Callback<List<HotspotsItem>?> {
             override fun onResponse(
                 call: Call<List<HotspotsItem>?>,
@@ -311,17 +343,22 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
                     User.staticUser.setLocation(it.latitude, it.longitude)
                     Log.d("show", "${it.latitude}  ${it.longitude}")
 
-                    if(User.staticUser.getPreferedRadius()<=0){
-                        fetchDataAndAddMarkers()
-                    }else{
-                        Log.d("radius parameter","${User.staticUser.getPreferedRadius()}")
-                        fetchDataAndAddMarkers(User.staticUser.getPreferedRadius())
+                    if(alreadyZoomed){
+                        if(User.staticUser.getPreferedRadius()<=0){
+                            fetchDataAndAddMarkers()
+                        }else{
+                            Log.d("radius parameter","${User.staticUser.getPreferedRadius()}")
+                            fetchDataAndAddMarkers(User.staticUser.getPreferedRadius())
+                        }
                     }
 
-                    // Zoom into the user's location here
-                    val userLatLng = LatLng(it.latitude, it.longitude)
-                    val cameraUpdate = CameraUpdateFactory.newLatLngZoom(userLatLng, 50f) // You can adjust the zoom level as needed (15f in this case)
-                    mMap.moveCamera(cameraUpdate)
+
+                  if(alreadyZoomed){
+                      val userLatLng = LatLng(it.latitude, it.longitude)
+                      val cameraUpdate = CameraUpdateFactory.newLatLngZoom(userLatLng, 50f) // You can adjust the zoom level as needed (15f in this case)
+                      mMap.moveCamera(cameraUpdate)
+                      alreadyZoomed=false
+                  }
 
                 }
             }
@@ -451,6 +488,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
             startActivity(intent)
         }
     }
+    private fun getCountryCode(latitude: Double, longitude: Double): String {
+        val geocoder = Geocoder(this, Locale.getDefault())
+        val addresses = geocoder.getFromLocation(latitude, longitude, 1)
+
+        if (addresses != null) {
+            return if (addresses.isNotEmpty()) {
+                addresses[0].countryCode ?: ""
+            } else {
+                "Unknown"
+            }
+        }else{
+            return "Unknown"
+        }
+    }
     private fun userobservations() {
 
         val databaseRef = FirebaseDatabase.getInstance().reference
@@ -462,19 +513,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
                 if (dataSnapshot.exists()) {
                     observationsList.clear() // Clear the list before populating it again
                     for (childSnapshot in dataSnapshot.children) {
-                        val birdSpecies = childSnapshot.child("birdSpecies").value.toString()
                         var date = childSnapshot.child("date").value.toString()
                         var lat= childSnapshot.child("latitude").value.toString().toDouble()
                         var long=childSnapshot.child("longitude").value.toString().toDouble()
                         var location= LatLng(lat,long)
-                        val dateFormat = SimpleDateFormat("yyyy-MM-dd") // Define your desired date format
-                        val markerColor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE) // Set the initial color
+                        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
 
-                        val Date: Date = dateFormat.parse(date)
+                        val markerColor = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)
+
+                        val formateddate: Date = dateFormat.parse(date)
                         mMap.addMarker(MarkerOptions().position(location)
                             .title("your Bird Observation")
-                            .snippet("Date:${date}\n" +
-                                     "Bird species:${birdSpecies}").icon(markerColor))
+                            .snippet("Date:${dateFormat.format(formateddate)}\n").icon(markerColor))
                     }
 
                 } else {

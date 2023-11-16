@@ -3,21 +3,68 @@ package com.example.myapplication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import com.google.android.gms.common.api.Status
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.myapplication.Models.User
 import com.example.myapplication.Models.diaryNotes
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
 import java.util.Date
 
 class DiaryNotes : AppCompatActivity() {
+    private lateinit var autocompleteFragment: AutocompleteSupportFragment
+    private var selectedLocation: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diary_notes)
+
+        Places.initialize(applicationContext,"AIzaSyBA__k_CwwnYUvyQQq2IV511Ekl9g4d2Lk")
+
+
+        // Initialize AutocompleteSupportFragment
+        autocompleteFragment = supportFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
+
+        // Specify the types of place data to return
+        autocompleteFragment.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG))
+
+        // Set up a PlaceSelectionListener to handle the selected place
+        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
+            override fun onPlaceSelected(place: Place) {
+
+                Log.i("Place", "Place: ${place.name}, ${place.id}, ${place.latLng}")
+            }
+
+            override fun onError(status: Status) {
+
+                Log.i("Place", "An error occurred: $status")
+            }
+        })
+
+        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
+            override fun onPlaceSelected(place: Place) {
+                // Handle the selected place
+                Log.i("Place", "Place: ${place.name}, ${place.id}, ${place.latLng}")
+
+                // Save the selected location
+                selectedLocation = place.name
+            }
+
+            override fun onError(status: Status) {
+                // Handle the error
+                Log.i("Place", "An error occurred: $status")
+            }
+        })
+        autocompleteFragment.setHint("Enter location")
 
         setupNavigator(R.id.profile_diaryNote,diaryNotesList::class.java)
         setupNavigator(R.id.settings_diaryNote,settingsPage::class.java)
@@ -34,12 +81,11 @@ class DiaryNotes : AppCompatActivity() {
         }
         add_button.setOnClickListener {
             var subject= findViewById<EditText>(R.id.subject_diaryNotes).text.toString()
-            var location= findViewById<EditText>(R.id.location_diaryNotes).text.toString()
             var description= findViewById<EditText>(R.id.description_diaryNotes).text.toString()
 
-            if(verification(subject,location,description)){
+            if(verification(subject,selectedLocation!!,description)){
 
-                var diaryNotes= diaryNotes(subject,location,getCurrentDateTime(),description)
+                var diaryNotes= diaryNotes(subject,selectedLocation!!,getCurrentDateTime(),description)
                 try {
 
                     val database = FirebaseDatabase.getInstance()
@@ -85,8 +131,8 @@ class DiaryNotes : AppCompatActivity() {
             findViewById<EditText>(R.id.subject_diaryNotes).error=" please add a subject"
             return false
         }
-        if(location.isEmpty()){
-            findViewById<EditText>(R.id.location_diaryNotes).error=" please add a location"
+        if(location.isNullOrEmpty()){
+            Toast.makeText(this, "enter a location", Toast.LENGTH_SHORT).show()
             return false
         }
         if(description.isEmpty()){
