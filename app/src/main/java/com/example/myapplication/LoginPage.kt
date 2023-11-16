@@ -47,6 +47,11 @@ class LoginPage : AppCompatActivity() {
                 password.error="please enter a password"
 
             } else {
+                //adapted from github
+//    authour: Ashwin29
+//    link to Author:https://gist.github.com/Ashwin29/fbe7aae6561bc4dd0133e3ebc21bef48
+//    link:https://gist.github.com/Ashwin29/fbe7aae6561bc4dd0133e3ebc21bef48
+//    6 years ago
                 auth.signInWithEmailAndPassword(emailText, passwordText)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {

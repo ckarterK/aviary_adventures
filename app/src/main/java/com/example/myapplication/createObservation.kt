@@ -82,6 +82,7 @@ class createObservation : AppCompatActivity() {
         setupNavigator(R.id.recrdobservation_CreateObservation,createObservation::class.java)
         setupNavigator(R.id.observationList_CreateObservation,ObservationListPage::class.java)
 
+        // Initialize fusedLocationClient for obtaining device location
         fusedLocationClient= LocationServices.getFusedLocationProviderClient(this)
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -92,7 +93,7 @@ class createObservation : AppCompatActivity() {
             }
         }
 
-
+        // Function to set up quantity buttons and click listeners
         addButton.setOnClickListener {
 
             counter++
@@ -102,7 +103,7 @@ class createObservation : AppCompatActivity() {
 
 
         }
-
+        // Function to set up quantity buttons and click listeners
         minusButton.setOnClickListener {
 
             if(counter>0){
@@ -129,14 +130,17 @@ class createObservation : AppCompatActivity() {
             var observation = Observation()
 
             if(validateFields(observation)) {
-try {
+            try {
 
 
                 uploadImageToFirebaseStorage(imageBitmap)
                 User.staticUser.addObservation(observation)
                 val database = FirebaseDatabase.getInstance()
 
-
+                //adapted from firebase
+//    authour:firebase
+//    link:https://firebase.google.com/docs/database/admin/save-data
+//    date:2023-11-15
                 // Create a DatabaseReference to the user's data
                 val databaseReference: DatabaseReference =
                     database.getReference("Users").child(User.staticUser.getUid())
@@ -191,8 +195,10 @@ try {
                 val databaseReference: DatabaseReference =
                     database.getReference("Users").child(User.staticUser.getUid())
                         .child("observed List").child("observation ${observation.getObservationDate()}")
-
-                // Save the user's data to the database
+                    //adapted from firebase
+//    authour:firebase
+//    link:https://firebase.google.com/docs/database/admin/save-data
+//    date:2023-11-15
                 databaseReference.setValue(observation.toMap())
                     .addOnCompleteListener { dbTask ->
                         if (dbTask.isSuccessful) {
@@ -229,7 +235,7 @@ try {
             }
         }
     }
-
+    // Function to upload image to Firebase Storage
     fun uploadImageToFirebaseStorage(imageBitmap: Bitmap) {
         val uid = User.staticUser?.getUid()
         PhotoUrl="${uid}_${getCurrentDateTime()}.jpg"
@@ -259,41 +265,52 @@ try {
 
     private fun validateFields(observation: Observation): Boolean {
 
-        uploadImageToFirebaseStorage(imageBitmap)
-        val spinnerIndex = birdSpeciesET.selectedItemPosition
-        var birdSpecies= birdSpeciesET.selectedItem.toString().trim()
-        val birdDescription = birdDescriptionET.text.toString().trim()
+        try{
+            uploadImageToFirebaseStorage(imageBitmap)
+            val spinnerIndex = birdSpeciesET.selectedItemPosition
+            var birdSpecies= birdSpeciesET.selectedItem.toString().trim()
+            val birdDescription = birdDescriptionET.text.toString().trim()
 
 
-        var isValid = true
+            var isValid = true
 
-        if (spinnerIndex==0) {
-            isValid = false
-            Toast.makeText(
-                this@createObservation,
-                "select a bird species",
-                Toast.LENGTH_SHORT
-            ).show()
+            if (spinnerIndex==0) {
+                isValid = false
+                Toast.makeText(
+                    this@createObservation,
+                    "select a bird species",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            if (counter==0) {
+                quantityET.error = "Quantity (Required)"
+                isValid = false
+            }
+
+            if (birdDescription.isEmpty()) {
+                birdDescriptionET.error = "bird Description"
+                isValid = false
+            }
+            if(isValid){
+
+                observation.setBirdSpecies(birdSpecies)
+                observation.setDescription(birdDescription)
+                observation.setQuantity(counter)
+                observation.setPictureID(PhotoUrl)
+                observation.setObservationDate(getCurrentDateTime())
+
+            }
+            return isValid
+        } catch (e: Exception) {
+                Toast.makeText(
+                    this@createObservation,
+                    "please take a picture",
+                    Toast.LENGTH_SHORT
+                ).show()
+            return false
         }
 
-        if (counter==0) {
-            quantityET.error = "Quantity (Required)"
-            isValid = false
-        }
-
-        if (birdDescription.isEmpty()) {
-            birdDescriptionET.error = "bird Description"
-            isValid = false
-        }
-        if(isValid){
-
-            observation.setBirdSpecies(birdSpecies)
-            observation.setDescription(birdDescription)
-            observation.setQuantity(counter)
-            observation.setPictureID(PhotoUrl)
-            observation.setObservationDate(getCurrentDateTime())
-        }
-        return isValid
     }
     private fun setupNavigator(settings_Maps: Int, page: Class<*>) {
         val button = findViewById<LinearLayout>(settings_Maps)

@@ -23,13 +23,16 @@ import java.util.Date
 
 class DiaryNotes : AppCompatActivity() {
     private lateinit var autocompleteFragment: AutocompleteSupportFragment
-    private var selectedLocation: String? = null
+    private var selectedLocation: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_diary_notes)
 
+        //adapted from google maps platform
+//    authour:google
+//    link:https://developers.google.com/maps/documentation/places/android-sdk/autocomplete#maps_places_autocomplete_support_fragment-kotlin
+//    date 2023-11-16
         Places.initialize(applicationContext,"AIzaSyBA__k_CwwnYUvyQQq2IV511Ekl9g4d2Lk")
-
 
         // Initialize AutocompleteSupportFragment
         autocompleteFragment = supportFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
@@ -83,14 +86,17 @@ class DiaryNotes : AppCompatActivity() {
             var subject= findViewById<EditText>(R.id.subject_diaryNotes).text.toString()
             var description= findViewById<EditText>(R.id.description_diaryNotes).text.toString()
 
-            if(verification(subject,selectedLocation!!,description)){
+            if(verification(subject, selectedLocation.toString(),description)){
 
                 var diaryNotes= diaryNotes(subject,selectedLocation!!,getCurrentDateTime(),description)
                 try {
 
                     val database = FirebaseDatabase.getInstance()
 
-                    // Create a DatabaseReference to the user's data
+                    //adapted from firebase
+//    authour:firebase
+//    link:https://firebase.google.com/docs/database/admin/save-data
+//    date:2023-11-15
                     val databaseReference: DatabaseReference =
                         database.getReference("Users").child(User.staticUser.getUid())
                             .child("diary notes").child("diaryNote ${getCurrentDateTime()}")
@@ -111,11 +117,9 @@ class DiaryNotes : AppCompatActivity() {
                             }
                         }
                 }catch (e: Exception){
-                    Toast.makeText(this, "take a picture", Toast.LENGTH_SHORT).show()
 
                 }
             }else{
-                Toast.makeText(this, "take a picture", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -126,12 +130,12 @@ class DiaryNotes : AppCompatActivity() {
 
     fun  verification(subject:String,location:String,description:String): Boolean {
 
-        if(location.isEmpty()){
+        if(subject.isEmpty()){
 
             findViewById<EditText>(R.id.subject_diaryNotes).error=" please add a subject"
             return false
         }
-        if(location.isNullOrEmpty()){
+        if(location.isNullOrBlank()){
             Toast.makeText(this, "enter a location", Toast.LENGTH_SHORT).show()
             return false
         }
@@ -139,6 +143,7 @@ class DiaryNotes : AppCompatActivity() {
             findViewById<EditText>(R.id.description_diaryNotes).error=" please add a description"
             return false
         }
+        Log.i("verifi", "An error occurred: ${selectedLocation}")
         return true
 
     }

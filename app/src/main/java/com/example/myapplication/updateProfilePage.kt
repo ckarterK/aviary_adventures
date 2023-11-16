@@ -22,21 +22,25 @@ class updateProfilePage : AppCompatActivity() {
         var saveBtn=findViewById<Button>(R.id.updateProfile_saveBtn)
         var discardBtn=findViewById<Button>(R.id.updateProfile_discard)
 
+        // Get a reference to the Firebase Database
         val databaseRef: DatabaseReference = FirebaseDatabase.getInstance().reference
         val uid = User.staticUser?.getUid().toString()
         val userNodePath = "Users/$uid"
         val user = FirebaseAuth.getInstance().currentUser
 
+        // Button click listener to go back to the settings page
         discardBtn.setOnClickListener {
             val intent = Intent(this, settingsPage::class.java)
             startActivity(intent)
         }
 
 
-
+// Button click listener to update user profile data
         saveBtn.setOnClickListener {
             var fullname=findViewById<EditText>(R.id.updateProfile_fullName).text.toString()
             var password=findViewById<EditText>(R.id.updateProfile_password).text.toString()
+
+            // Update the full name if it's not empty
             if (!fullname.isEmpty())
             {
                 val updatedData = mapOf("$userNodePath/name" to fullname)
@@ -54,6 +58,7 @@ class updateProfilePage : AppCompatActivity() {
                     }
 
             }
+            // Update the password if it's not empty
             if(!password.isEmpty())
             {
                 if(password.length<6){
@@ -75,6 +80,13 @@ class updateProfilePage : AppCompatActivity() {
                             }
                         }
                 }
+            }
+            if(password.isEmpty()&& fullname.isEmpty()){
+                Toast.makeText(
+                    this,
+                    "you have not inputted any details",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
             }

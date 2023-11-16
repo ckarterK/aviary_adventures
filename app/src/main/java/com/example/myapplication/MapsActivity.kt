@@ -488,6 +488,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
             startActivity(intent)
         }
     }
+
+    //adapted from github
+//    authour:user370305
+//    link to Author:https://stackoverflow.com/questions/9409195/how-to-get-complete-address-from-latitude-and-longitude
+//    link:https://www.youtube.com/watch?v=3f09neIN89o&t=403s
+//    edited Apr 17, 2015 at 15:17
     private fun getCountryCode(latitude: Double, longitude: Double): String {
         val geocoder = Geocoder(this, Locale.getDefault())
         val addresses = geocoder.getFromLocation(latitude, longitude, 1)
@@ -507,7 +513,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
         val databaseRef = FirebaseDatabase.getInstance().reference
         val uid = User.staticUser?.getUid().toString()
         val categoryPath = "Users/$uid/observed List"
-
+//adapted from firebase
+//    authour:firebase
+//    link:https://firebase.google.com/docs/database/admin/retrieve-data
+//    date:2023-11-15
         databaseRef.child(categoryPath).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {

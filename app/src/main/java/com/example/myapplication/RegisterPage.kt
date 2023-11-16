@@ -33,7 +33,8 @@ class RegisterPage : AppCompatActivity() {
             val email = findViewById<EditText>(R.id.RegisterPage_Email)
             var emailText=email.text.toString()
             val password = findViewById<EditText>(R.id.RegisterPage_Password).text.toString()
-            Log.d("email", emailText)
+
+            //checking to see if non of the fields are empty
             var isvalid=true
             if (fullName.isEmpty()) {
                 findViewById<EditText>(R.id.RegisterPage_fullName).error = "Please enter your full name"
@@ -54,7 +55,11 @@ class RegisterPage : AppCompatActivity() {
             }else if(password.length<6){
                 findViewById<EditText>(R.id.RegisterPage_Password).error = "password must be 6 characters long"
             }
-
+            //adapted from github
+//    authour: boomboompower
+//    link to Author:https://gist.github.com/ironic-name
+//    link:https://gist.github.com/boomboompower/edf101c2cc877112892eb57461835311
+//    5 years ago
             if(isvalid){
             auth.createUserWithEmailAndPassword(emailText, password).addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -97,6 +102,11 @@ class RegisterPage : AppCompatActivity() {
         }
 
     }
+    //adapted from github
+//    authour: ironic-name
+//    link to Author:https://gist.github.com/ironic-name
+//    link:https://gist.github.com/ironic-name/f8e8479c76e80d470cacd91001e7b45b
+//    date:20 Sept 2018
     private fun isEmailValid(email: String): Boolean {
         val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
         return email.matches(emailPattern.toRegex())

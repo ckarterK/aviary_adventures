@@ -31,15 +31,15 @@ class settingsPage : AppCompatActivity() {
 
         var editProfileBtn=findViewById<Button>(R.id.settings_EditProfile)
 
+        // Find and set up buttons and their click listeners
         setupMeasurementBtn(R.id.settings_kilometersBtn, User.Measurement.KILOMETERS)
         setupMeasurementBtn(R.id.settings_milesBtn, User.Measurement.MILES)
-
         setupRadiusBtn(R.id.Radius5_Settings,User.Radius.RADIUS_5)
         setupRadiusBtn(R.id.Radius10_Settings,User.Radius.RADIUS_10)
         setupRadiusBtn(R.id.Radius15_Settings,User.Radius.RADIUS_15)
         setupRadiusBtn(R.id.Radius30_Settings,User.Radius.RADIUS_30)
 
-
+        // Set up navigation buttons
         setupNavigator(R.id.profile_Settings,diaryNotesList::class.java)
         setupNavigator(R.id.settings_Settings,settingsPage::class.java)
         setupNavigator(R.id.map_Settings,MapsActivity::class.java)
@@ -54,7 +54,7 @@ class settingsPage : AppCompatActivity() {
 
 
     }
-
+    // Check and set metric unit preferences
     private fun hasMetricUnitPreference(){
 
         if(User.staticUser.getpreferedMeasurement().isEmpty()) {
@@ -75,7 +75,7 @@ class settingsPage : AppCompatActivity() {
 
         }
     }
-
+    // Check and set radius preferences
     private fun hasRadiusPreference(){
         if(User.staticUser.getPreferedRadius()==0){
             setupRadiusBtn(R.id.Radius5_Settings, User.Radius.RADIUS_5)
@@ -83,7 +83,7 @@ class settingsPage : AppCompatActivity() {
             setupRadiusBtn(R.id.Radius15_Settings, User.Radius.RADIUS_15)
             setupRadiusBtn(R.id.Radius30_Settings, User.Radius.RADIUS_30)
         }else{
-
+            // Set the chosen radius button color
             if (User.staticUser.getPreferedRadius() == User.Radius.RADIUS_5){
                chosenButtonColor(R.id.Radius5_Settings)
             }
@@ -103,6 +103,7 @@ class settingsPage : AppCompatActivity() {
         }
 
     }
+    // Set up click listener for metric unit buttons
     private fun setupMeasurementBtn(buttonId: Int, measurement: String) {
         val button = findViewById<Button>(buttonId)
         button.setOnClickListener {
@@ -126,9 +127,7 @@ class settingsPage : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    // Error saving data to the database
-                    val dbException = dbTask.exception
-                    // Handle the error (e.g., show a message to the user)
+
                 }
             }
         }

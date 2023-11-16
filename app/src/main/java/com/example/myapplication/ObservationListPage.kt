@@ -95,6 +95,10 @@ class ObservationListPage : AppCompatActivity() {
         val uid = User.staticUser?.getUid().toString()
         val categoryPath = "Users/$uid/observed List"
 
+        //adapted from firebase
+//    authour:firebase
+//    link:https://firebase.google.com/docs/database/admin/retrieve-data
+//    date:2023-11-15
         databaseRef.child(categoryPath).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 observationsList.clear() // Clear the list before populating it again
@@ -153,6 +157,10 @@ class ObservationListPage : AppCompatActivity() {
         val uid = User.staticUser?.getUid().toString()
         val categoryPath = "Users/$uid/observed List"
 
+        //adapted from firebase
+//    authour:firebase
+//    link:https://firebase.google.com/docs/database/admin/retrieve-data
+//    date:2023-11-15
         databaseRef.child(categoryPath).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
