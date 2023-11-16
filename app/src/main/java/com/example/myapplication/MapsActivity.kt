@@ -12,16 +12,22 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet.Constraint
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.Models.Observation
 import com.example.myapplication.Models.User
@@ -74,6 +80,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
     private lateinit var endlocation: LatLng
     private lateinit var locationUpdateHandler: Handler
     private val locationUpdateInterval = 5000L
+    private lateinit var progressBar: ProgressBar
+    private lateinit var progressbarContainer:ConstraintLayout
+    private lateinit var progressbarTextView:TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,6 +92,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
         setContentView(binding.root)
 
 
+        progressBar=findViewById<ProgressBar>(R.id.progressBar4)
+        progressbarContainer=findViewById<ConstraintLayout>(R.id.progressbarContainer)
+        progressbarTextView=findViewById<TextView>(R.id.textView23)
         setupNavigator(R.id.profile_Maps,diaryNotesList::class.java)
         setupNavigator(R.id.settings_Maps,settingsPage::class.java)
         setupNavigator(R.id.map_Maps,MapsActivity::class.java)
@@ -127,7 +139,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
             try {
                 val radius = RadiuSpinner.selectedItem.toString().toInt()
                 Log.d("spinner","${User.staticUser.getLocation().lat}  ${User.staticUser.getLocation().lng} ${radius}")
-
                 fetchDataAndAddMarkers(radius)
             } catch (e: NumberFormatException) {
                 Toast.makeText(this, "select a range", Toast.LENGTH_SHORT).show()
@@ -138,13 +149,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
 
 
 
+        progressBarVisible()
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
         fusedLocationClient=LocationServices.getFusedLocationProviderClient(this)
-
+        progressBarInvisible()
 
 
     }
@@ -176,7 +188,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
      */
     override fun onMapReady(googleMap: GoogleMap) {
 
-
         mMap = googleMap
         mMap.setOnPolylineClickListener(this)
 
@@ -201,11 +212,23 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
             calculateDirections(marker)
             true // Return true to consume the event
         }
-
     }
 
 
+private fun progressBarVisible(){
+    progressBar.visibility= View.VISIBLE
+    progressbarContainer.visibility=View.VISIBLE
+    progressbarTextView.visibility=View.VISIBLE
+    findViewById<ConstraintLayout>(R.id.constrait31).visibility=View.VISIBLE
 
+}
+
+    private fun progressBarInvisible(){
+        progressBar.visibility= View.INVISIBLE
+        progressbarContainer.visibility=View.INVISIBLE
+        progressbarTextView.visibility=View.INVISIBLE
+        findViewById<ConstraintLayout>(R.id.constrait31).visibility=View.INVISIBLE
+    }
 //adapted from youtube
 //    authour:CodingWithMitch
 //    link to Author:
@@ -213,6 +236,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
 //    date:20 Sept 2018
 
     private fun fetchDataAndAddMarkers(radius: Int) {
+        progressBarVisible()
         val referenceLocation = Location("referenceLocation")
         val userLocation = User.staticUser.getLocation()
 
@@ -272,10 +296,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
                     }
                     // Add all markers to the map
                     mMap.clear()
+                    userobservations()
                     for (markerOptions in markerOptionsList) {
                         mMap.addMarker(markerOptions)
                     }
-                    userobservations()
+
                     // Adjust the camera to show all markers within the specified range
                     if (!markerOptionsList.isEmpty()) {
                         val builder = LatLngBounds.builder()
@@ -288,6 +313,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
                         val cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, 250)
                         mMap.moveCamera(cameraUpdate)
                     }
+                progressBarInvisible()
                 }
 
                 override fun onFailure(call: Call<List<HotspotsItem>?>, t: Throwable) {
@@ -305,6 +331,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
 //    link:https://www.youtube.com/watch?v=f47L1SL5S0o
 //    date:20 Sept 2018
     private fun fetchDataAndAddMarkers() {
+    progressBarVisible()
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.ebird.org/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -322,12 +349,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
             ) {
                 val HotspotList = response.body() ?: emptyList()
 
+                userobservations()
                 for (hotspots in HotspotList) {
                     val location = LatLng(hotspots.lat, hotspots.lng)
                     mMap.addMarker(MarkerOptions().position(location).title("Bird Observation"))
 
                 }
-                userobservations()
+            progressBarInvisible()
             }
 
             override fun onFailure(call: Call<List<HotspotsItem>?>, t: Throwable) {
@@ -337,6 +365,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
     }
 
     private fun showUserLocation() {
+        progressBarVisible()
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                 location?.let {
@@ -363,6 +392,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, OnPolylineClickLis
                 }
             }
         }
+        progressBarInvisible()
     }
     //adapted from youtube
 //    authour:CodingWithMitch
