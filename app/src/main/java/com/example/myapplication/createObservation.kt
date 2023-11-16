@@ -71,7 +71,6 @@ class createObservation : AppCompatActivity() {
         birdDescriptionET= findViewById<EditText>(R.id.createObservation_Description)
         var addButton= findViewById<ImageView>(R.id.createObservation_addQuantity)
         var minusButton= findViewById<ImageView>(R.id.createObservation_minusQuantity)
-        var addSpeciesButton=findViewById<Button>(R.id.createObservation_addSpecies)
         var recordButton=findViewById<Button>(R.id.createObservation_Record)
         val takePictureButton = findViewById<Button>(R.id.ButtonPicture)
 
@@ -122,54 +121,6 @@ class createObservation : AppCompatActivity() {
             else{
                 Toast.makeText(this, "add a number", Toast.LENGTH_SHORT).show()
             }
-        }
-
-        addSpeciesButton.setOnClickListener {
-
-
-            var observation = Observation()
-
-            if(validateFields(observation)) {
-            try {
-
-
-                uploadImageToFirebaseStorage(imageBitmap)
-                User.staticUser.addObservation(observation)
-                val database = FirebaseDatabase.getInstance()
-
-                //adapted from firebase
-//    authour:firebase
-//    link:https://firebase.google.com/docs/database/admin/save-data
-//    date:2023-11-15
-                // Create a DatabaseReference to the user's data
-                val databaseReference: DatabaseReference =
-                    database.getReference("Users").child(User.staticUser.getUid())
-                        .child("observed List").child("observation ${getCurrentDateTime()}")
-
-                // Save the user's data to the database
-                databaseReference.setValue(observation.toMap())
-                    .addOnCompleteListener { dbTask ->
-                        if (dbTask.isSuccessful) {
-                            Toast.makeText(this, "observation recorded", Toast.LENGTH_SHORT).show()
-                            counter=0
-                            birdDescriptionET.setText("")
-                            quantityET.setText("Quantity")
-                            birdSpeciesET.setSelection(0)
-                            takePictureButton.isEnabled=true
-                        }
-                        else
-                        {
-                            // Error saving data to the database
-                            val dbException = dbTask.exception
-                            // Handle the error (e.g., show a message to the user)
-                        }
-                    }
-            }catch (e: Exception){
-                Toast.makeText(this, "take a picture", Toast.LENGTH_SHORT).show()
-
-            }
-            }
-
         }
 
         takePictureButton.setOnClickListener {
